@@ -10,5 +10,6 @@ export const dark = {
     disabled: "rgba(92, 92, 92, 1)",
 
     white: "#FFF",
+    red: "rgba(204, 0, 0, 1)",
   },
 };

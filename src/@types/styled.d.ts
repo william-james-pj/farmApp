@@ -13,6 +13,7 @@ declare module "styled-components" {
       disabled: string;
 
       white: string;
+      red: string;
     };
   }
 }
