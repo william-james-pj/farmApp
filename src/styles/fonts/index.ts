@@ -1,11 +1,12 @@
-const size = {
-  xs: "12px", //12px
-  sm: "14px", //14px
-  normal: "16px", //16px
-  md: "20px", //20px
-  lg: "22px", //22px;
-  xl: "28px", //28px
-  xxl: "34px", //34px
+enum size {
+  "xxs" = "10px",
+  "xs" = "12px", 
+  "sm" = "14px", 
+  "normal" = "16px", 
+  "md" = "20px", 
+  "lg" = "22px", 
+  "xl" = "28px", 
+  "xxl" = "34px",
 };
 
 const type = {
