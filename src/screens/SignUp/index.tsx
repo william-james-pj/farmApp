@@ -57,7 +57,12 @@ export function SignUp() {
                 errorText={"Password must be at least 6 characters"}
               />
             </S.Form>
-            <ButtonLarge onPress={() => {}} text={"Sign up"} />
+            <ButtonLarge
+              onPress={() => {
+                usenavigation.navigate("InitialSetup");
+              }}
+              text={"Sign up"}
+            />
             <S.Row>
               <S.Acoount>Already have an account ?</S.Acoount>
               <S.Button>
