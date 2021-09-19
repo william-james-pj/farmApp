@@ -8,3 +8,8 @@ type RootStackParamListLogout = {
 };
 
 type ScreenNavigationProp = NativeStackNavigationProp<RootStackParamListLogout>;
+
+type RootStackParamListLogged = {
+  Home: undefined;
+  Sensor: undefined;
+};
