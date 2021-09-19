@@ -2,6 +2,7 @@ export const light = {
   title: "light",
   colors: {
     primary: "rgba(111, 211, 110, 1)",
+    primaryOpacity: "rgba(111, 211, 110, 0.4)",
 
     background: "rgba(245, 246, 248, 1)",
     card: "rgba(248, 248, 248, 1)",
