@@ -6,22 +6,9 @@ import { RadioButtonProps } from "../../@types/radioButton";
 import { ButtonSmall } from "../../components/ButtonSmall";
 import { RadioGroup } from "../../components/RadioGroup";
 import { TextInput } from "../../components/TextInput";
+import { radioButtonsData } from "../../data/radioButtonData";
 
 import * as S from "./styles";
-
-const radioButtonsData = [
-  {
-    id: "1",
-    label: "Celsius (C)",
-    value: "celsius",
-    selected: true,
-  },
-  {
-    id: "2",
-    label: "Fahrenheit (F)",
-    value: "fahrenheit",
-  },
-];
 
 export function InitialSetup() {
   const [farmName, setFarmName] = useState("");

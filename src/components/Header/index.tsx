@@ -8,9 +8,13 @@ import * as S from "./styles";
 
 interface HeaderProps {
   openDrawer?: () => void;
+  title?: string;
 }
 
-export function Header({ openDrawer = () => {} }: HeaderProps) {
+export function Header({
+  openDrawer = () => {},
+  title = "Farm App",
+}: HeaderProps) {
   const theme = useTheme();
 
   function openMenu() {
@@ -24,7 +28,7 @@ export function Header({ openDrawer = () => {} }: HeaderProps) {
           <BarMenu fill={theme.colors.text} />
         </RectButton>
       </S.ButtonContainer>
-      <S.Title>Farm App</S.Title>
+      <S.Title>{title}</S.Title>
     </S.ViewContainer>
   );
 }

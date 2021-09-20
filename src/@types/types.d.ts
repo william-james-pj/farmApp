@@ -12,6 +12,7 @@ type ScreenNavigationProp = NativeStackNavigationProp<RootStackParamListLogout>;
 type RootStackParamListLogged = {
   Home: undefined;
   Sensor: undefined;
+  Profile: undefined;
 };
 
 type SensorItemType = {
