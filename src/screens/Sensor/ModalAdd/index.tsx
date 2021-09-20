@@ -47,7 +47,9 @@ export function ModalAdd() {
             <S.Button onPress={closeModal}>
               <S.TextCancel>Cancel</S.TextCancel>
             </S.Button>
-            <ButtonSmall text="Add" onPress={() => {}} />
+            <S.ButtonAdd onPress={closeModal}>
+              <S.TextAdd>Save</S.TextAdd>
+            </S.ButtonAdd>
           </S.Footer>
         </S.Modal>
       </S.Wrapper>

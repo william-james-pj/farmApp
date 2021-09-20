@@ -65,3 +65,20 @@ export const TextCancel = styled.Text`
   font-size: ${fonts.size.normal};
   font-family: ${fonts.type.text700};
 `;
+
+export const ButtonAdd = styled.Pressable`
+  background: ${(props) => props.theme.colors.primary};
+  width: 80px;
+  height: 45px;
+
+  border-radius: 10px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TextAdd = styled.Text`
+  color: ${(props) => props.theme.colors.white};
+  font-size: ${fonts.size.normal};
+  font-family: ${fonts.type.text700};
+`;
