@@ -13,3 +13,9 @@ type RootStackParamListLogged = {
   Home: undefined;
   Sensor: undefined;
 };
+
+type SensorItemType = {
+  id: string;
+  name: string;
+  color: string;
+};
