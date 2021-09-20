@@ -19,9 +19,11 @@ export function Header({ openDrawer = () => {} }: HeaderProps) {
 
   return (
     <S.ViewContainer>
-      <RectButton onPress={openMenu}>
-        <BarMenu fill={theme.colors.text} />
-      </RectButton>
+      <S.ButtonContainer>
+        <RectButton onPress={openMenu} style={{ padding: 5, zIndex: 5 }}>
+          <BarMenu fill={theme.colors.text} />
+        </RectButton>
+      </S.ButtonContainer>
       <S.Title>Farm App</S.Title>
     </S.ViewContainer>
   );

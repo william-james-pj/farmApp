@@ -4,9 +4,7 @@ import { ViewProps } from "react-native";
 
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
-interface ViewProp extends ViewProps {}
-
-export const ViewContainer = styled.View<ViewProp>`
+export const ViewContainer = styled.View`
   width: 100%;
   height: 100px;
   background: ${(props) => props.theme.colors.background};
@@ -15,6 +13,15 @@ export const ViewContainer = styled.View<ViewProp>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  position: relative;
+`;
+
+export const ButtonContainer = styled.View`
+  height: 100%;
+  padding-top: ${getStatusBarHeight() + "px"};
+  left: 20px;
+  position: absolute;
+  justify-content: center;
 `;
 
 export const Title = styled.Text`
