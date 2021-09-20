@@ -1,6 +1,7 @@
 import React from "react";
 
 import { ColorModeContext } from "./src/contexts/ColorModeContext";
+import { OpenModalAddProvider } from "./src/contexts/OpenModalAddContext";
 
 import { useFonts } from "expo-font";
 import {
@@ -26,7 +27,9 @@ export default function App() {
 
   return (
     <ColorModeContext>
-      <Routes />
+      <OpenModalAddProvider>
+        <Routes />
+      </OpenModalAddProvider>
     </ColorModeContext>
   );
 }

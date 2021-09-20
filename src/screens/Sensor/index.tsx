@@ -10,6 +10,7 @@ import { RootStackParamListLogged, SensorItemType } from "../../@types/types";
 type SensorProps = DrawerScreenProps<RootStackParamListLogged, "Sensor">;
 
 import * as S from "./styles";
+import { ModalAdd } from "./ModalAdd";
 
 const data: SensorItemType[] = [
   {
@@ -74,6 +75,7 @@ export function Sensor({ navigation }: SensorProps) {
           ListFooterComponent={() => <S.FooterView></S.FooterView>}
         />
       </S.Wrapper>
+      <ModalAdd />
     </>
   );
 }

@@ -8,8 +8,6 @@ export const Wrapper = styled.View`
 
   border-radius: 10px;
   overflow: hidden;
-
-  margin: 40px 0 20px;
 `;
 
 export const Button = styled.View`

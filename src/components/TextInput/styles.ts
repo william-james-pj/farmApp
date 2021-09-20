@@ -6,6 +6,7 @@ const Invalid = false;
 const Pristine = null;
 type BoxProps = {
   color: typeof Valid | typeof Invalid | typeof Pristine;
+  width: string;
 };
 
 export const Wrapper = styled.View`
@@ -18,7 +19,7 @@ export const Wrapper = styled.View`
 `;
 
 export const Box = styled.View<BoxProps>`
-  width: 85%;
+  width: ${(props) => props.width};
   height: 58px;
 
   justify-content: center;
@@ -34,12 +35,14 @@ export const Box = styled.View<BoxProps>`
         : props.theme.colors.disabled};
 `;
 
-export const TextInput = styled.TextInput`
+export const TextInput = styled.TextInput.attrs((props) => ({
+  placeholderTextColor: props.theme.colors.disabled,
+}))`
   color: ${(props) => props.theme.colors.text};
   font-family: ${fonts.type.text400};
 `;
 
-export const ErrorText = styled.TextInput`
+export const ErrorText = styled.Text`
   width: 75%;
   color: ${(props) => props.theme.colors.red};
   font-family: ${fonts.type.text400};

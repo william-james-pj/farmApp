@@ -2,18 +2,28 @@ import React from "react";
 
 import { Path } from "react-native-svg";
 import PlusSVG from "../../../assets/svg/Plus.svg";
+import { ModalAdd } from "../../../screens/Sensor/ModalAdd";
+import { useOpenModalAdd } from "../../../hooks/useOpenModalAdd";
 
 import * as S from "./styles";
 
 interface FloatingButtonProps {
   bgColor: string;
+  navigate: () => void;
 }
 
-export function FloatingButton({ bgColor }: FloatingButtonProps) {
+export function FloatingButton({ bgColor, navigate }: FloatingButtonProps) {
+  const { openModal } = useOpenModalAdd();
+
+  const changeClick = () => {
+    navigate();
+    openModal(true);
+  };
+
   return (
     <S.View>
       <SvgBackground color={bgColor} />
-      <S.TouchableOpacity>
+      <S.TouchableOpacity onPress={changeClick}>
         <S.ActionButtonView>
           <PlusSVG />
         </S.ActionButtonView>

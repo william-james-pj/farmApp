@@ -9,6 +9,7 @@ type TextInputProps = {
   secureTextEntry?: boolean;
   validator?: (input: string) => boolean;
   errorText?: string;
+  widhtBox?: string;
 };
 
 const Valid = true;
@@ -23,6 +24,7 @@ export function TextInput({
   secureTextEntry = false,
   validator,
   errorText = "",
+  widhtBox = "85%",
 }: TextInputProps) {
   const [validState, setValidState] = useState<InputState>(Pristine);
 
@@ -40,7 +42,7 @@ export function TextInput({
 
   return (
     <S.Wrapper>
-      <S.Box color={validState}>
+      <S.Box color={validState} width={widhtBox}>
         <S.TextInput
           underlineColorAndroid="transparent"
           placeholder={placeholder}

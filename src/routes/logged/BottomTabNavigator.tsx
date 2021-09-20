@@ -5,6 +5,7 @@ import { useTheme } from "styled-components";
 
 import {
   BottomTabBar,
+  BottomTabBarProps,
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
@@ -15,8 +16,12 @@ import { IconTabBar } from "./IconTabBar";
 import { Home } from "../../screens/Home";
 import { Sensor } from "../../screens/Sensor";
 
-export function BottomTabNavigator() {
+export function BottomTabNavigator({ navigation }: BottomTabBarProps) {
   const theme = useTheme();
+
+  const navigateToSensor = () => {
+    navigation.navigate("Sensor");
+  };
 
   const styles = StyleSheet.create({
     navigatorContainer: {
@@ -75,7 +80,10 @@ export function BottomTabNavigator() {
         component={EmptyScreen}
         options={{
           tabBarButton: (props) => (
-            <FloatingButton bgColor={theme.colors.card} />
+            <FloatingButton
+              bgColor={theme.colors.card}
+              navigate={navigateToSensor}
+            />
           ),
         }}
       />
