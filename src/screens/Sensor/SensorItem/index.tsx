@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { SensorItemType } from "../../../@types/types";
 
 import { RectButton } from "react-native-gesture-handler";
 
 import * as S from "./styles";
+import { ModalInfo } from "../ModalInfo";
 
 export function SensorItem({ item }: { item: SensorItemType }) {
+  const [isModalVisible, setModalVisible] = useState(false);
+
   const styles = StyleSheet.create({
     box: {
       shadowColor: "#000",
@@ -29,15 +32,27 @@ export function SensorItem({ item }: { item: SensorItemType }) {
   });
 
   return (
-    <S.Wrapper>
-      <S.ShadowView style={styles.box}>
-        <RectButton onPress={() => {}} style={styles.button}>
-          <S.Square color={item.color} />
-          <S.TextContainer>
-            <S.SensorName>{item.name}</S.SensorName>
-          </S.TextContainer>
-        </RectButton>
-      </S.ShadowView>
-    </S.Wrapper>
+    <>
+      <S.Wrapper>
+        <S.ShadowView style={styles.box}>
+          <RectButton
+            onPress={() => {
+              setModalVisible(true);
+            }}
+            style={styles.button}
+          >
+            <S.Square color={item.color} />
+            <S.TextContainer>
+              <S.SensorName>{item.name}</S.SensorName>
+            </S.TextContainer>
+          </RectButton>
+        </S.ShadowView>
+      </S.Wrapper>
+      <ModalInfo
+        isModalVisible={isModalVisible}
+        setModalVisible={() => setModalVisible(false)}
+        sensor={item}
+      />
+    </>
   );
 }

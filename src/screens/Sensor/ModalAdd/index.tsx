@@ -26,7 +26,7 @@ export function ModalAdd() {
   };
 
   return (
-    <Modal isVisible={isOpen}>
+    <Modal isVisible={isOpen} onBackdropPress={() => closeModal()}>
       <S.Wrapper>
         <S.Modal>
           <S.Title>Add sensor</S.Title>
