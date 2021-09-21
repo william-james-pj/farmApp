@@ -1,6 +1,8 @@
 import styled from "styled-components/native";
 import { fonts } from "../../styles/fonts";
 
+import { RectButton } from "react-native-gesture-handler";
+
 export const Wrapper = styled.View`
   background: ${(props) => props.theme.colors.background};
   flex: 1;
@@ -39,6 +41,17 @@ export const Box = styled.View`
   border-radius: 15px;
   background: ${(props) => props.theme.colors.primary};
   overflow: hidden;
+  position: relative;
+`;
+
+export const ButtonRect = styled(RectButton)`
+  position: absolute;
+  flex: 1;
+  z-index: 99;
+  width: 110%;
+  height: 120%;
+  top: 0;
+  left: 0;
 `;
 
 export const WeatherTextContainer = styled.View`

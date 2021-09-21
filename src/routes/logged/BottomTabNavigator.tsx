@@ -13,8 +13,8 @@ const Tab = createBottomTabNavigator();
 import { FloatingButton } from "./FloatingButton";
 import { IconTabBar } from "./IconTabBar";
 
-import { Home } from "../../screens/Home";
 import { Sensor } from "../../screens/Sensor";
+import { StackNavigator } from "./StackNavigator";
 
 export function BottomTabNavigator({ navigation }: BottomTabBarProps) {
   const theme = useTheme();
@@ -67,7 +67,7 @@ export function BottomTabNavigator({ navigation }: BottomTabBarProps) {
     >
       <Tab.Screen
         name="HomeTab"
-        component={Home}
+        component={StackNavigator}
         options={{
           tabBarIcon: ({ focused }) => (
             <IconTabBar icon="Home" focused={focused} />

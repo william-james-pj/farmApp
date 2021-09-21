@@ -15,6 +15,7 @@ import * as S from "./styles";
 
 export function Home({ navigation }: HomeProps) {
   const theme = useTheme();
+
   return (
     <>
       <Header openDrawer={navigation.openDrawer} />
@@ -25,6 +26,9 @@ export function Home({ navigation }: HomeProps) {
         </S.TextContainer>
         <S.WeatherContainer>
           <S.Box>
+            <S.ButtonRect
+              onPress={() => navigation.navigate("Weather")}
+            ></S.ButtonRect>
             <S.WeatherTextContainer>
               <S.WeatherText>Monday, June 21</S.WeatherText>
               <S.WeatherText>São Roque</S.WeatherText>

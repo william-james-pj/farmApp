@@ -1,6 +1,8 @@
 import styled from "styled-components/native";
 import { fonts } from "../../styles/fonts";
-import { ViewProps } from "react-native";
+
+import BarMenuSvg from "../../assets/svg/BarMenu.svg";
+import GoBackSvg from "../../assets/svg/GoBack.svg";
 
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
@@ -22,6 +24,7 @@ export const ButtonContainer = styled.View`
   left: 20px;
   position: absolute;
   justify-content: center;
+  align-items: center;
 `;
 
 export const Title = styled.Text`
@@ -31,3 +34,11 @@ export const Title = styled.Text`
   font-size: ${fonts.size.normal};
   color: ${(props) => props.theme.colors.text};
 `;
+
+export const BarMenu = styled(BarMenuSvg).attrs((props) => ({
+  fill: props.theme.colors.text,
+}))``;
+
+export const GoBack = styled(GoBackSvg).attrs((props) => ({
+  fill: props.theme.colors.text,
+}))``;
