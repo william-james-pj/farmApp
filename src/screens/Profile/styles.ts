@@ -69,6 +69,7 @@ export const Footer = styled.View`
   align-items: center;
   justify-content: flex-end;
   flex-direction: row;
+  margin-top: 20px;
 `;
 
 export const Button = styled.View`

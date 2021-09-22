@@ -11,6 +11,7 @@ import { BorderlessButton } from "react-native-gesture-handler";
 import { radioButtonsData } from "../../data/radioButtonData";
 import { RadioButtonProps } from "../../@types/radioButton";
 import { RadioGroup } from "../../components/RadioGroup";
+import { Dropdown } from "../../components/Dropdown";
 
 import * as S from "./styles";
 
@@ -19,6 +20,10 @@ type ProfileProps = DrawerScreenProps<RootStackParamListLogged, "Profile">;
 export function Profile({ navigation }: ProfileProps) {
   const [name, setName] = useState("");
   const [farmName, setFarmName] = useState("");
+  const [country, setCountry] = useState("Brasil");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+
   const [radioButtons, setRadioButtons] =
     useState<RadioButtonProps[]>(radioButtonsData);
 
@@ -59,7 +64,27 @@ export function Profile({ navigation }: ProfileProps) {
               radioButtons={radioButtonsData}
               onPress={onPressRadioButton}
             />
+
             <S.TextSecond>Location</S.TextSecond>
+            <Dropdown
+              itemsData={[{ label: "Brasil", value: "Brasil" }]}
+              placeholder={"Country"}
+              value={country}
+              setValue={setCountry}
+              disabled={true}
+            />
+            <Dropdown
+              itemsData={[{ label: "Brasil", value: "brasil" }]}
+              placeholder={"State"}
+              value={state}
+              setValue={setState}
+            />
+            <Dropdown
+              itemsData={[{ label: "Brasil", value: "brasil" }]}
+              placeholder={"City"}
+              value={city}
+              setValue={setCity}
+            />
           </S.Content>
           <S.Footer>
             <S.Button>
