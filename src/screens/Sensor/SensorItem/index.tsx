@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
-import { SensorItemType } from "../../../@types/types";
 
 import { RectButton } from "react-native-gesture-handler";
+import { ModalInfo } from "../ModalInfo";
+import { SensorItemType } from "../../../@types/types";
 
 import * as S from "./styles";
-import { ModalInfo } from "../ModalInfo";
 
 export function SensorItem({ item }: { item: SensorItemType }) {
   const [isModalVisible, setModalVisible] = useState(false);

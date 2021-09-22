@@ -1,11 +1,5 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { useTheme } from "styled-components";
-
-import HumiditySvg from "../../../assets/svg/Humidity.svg";
-import SoilSvg from "../../../assets/svg/Soil.svg";
-import TempSvg from "../../../assets/svg/Temp.svg";
-import WindSvg from "../../../assets/svg/Wind.svg";
 
 import * as S from "./styles";
 
@@ -16,8 +10,6 @@ type SensorBoxProps = {
 };
 
 export function SensorBox({ sensorType, sensorValue, icon }: SensorBoxProps) {
-  const theme = useTheme();
-
   const styles = StyleSheet.create({
     box: {
       shadowColor: "#000",
@@ -36,13 +28,13 @@ export function SensorBox({ sensorType, sensorValue, icon }: SensorBoxProps) {
     <S.Wrapper style={styles.box}>
       <S.RowIcon>
         {icon === "Humidity" ? (
-          <HumiditySvg fill={theme.colors.text} />
+          <S.Humidity />
         ) : icon === "Soil" ? (
-          <SoilSvg fill={theme.colors.text} />
+          <S.Soil />
         ) : icon === "Temp" ? (
-          <TempSvg fill={theme.colors.text} />
+          <S.Temp />
         ) : (
-          <WindSvg fill={theme.colors.text} />
+          <S.Wind />
         )}
       </S.RowIcon>
       <S.RowText>

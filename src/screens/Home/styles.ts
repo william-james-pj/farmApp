@@ -3,6 +3,9 @@ import { fonts } from "../../styles/fonts";
 
 import { RectButton } from "react-native-gesture-handler";
 
+import WindSvg from "../../assets/svg/Wind.svg";
+import CloudySvg from "../../assets/svg/Cloudy.svg";
+
 export const Wrapper = styled.View`
   background: ${(props) => props.theme.colors.background};
   flex: 1;
@@ -129,3 +132,11 @@ export const Ball = styled.View`
   align-self: center;
   background: ${(props) => props.theme.colors.primary};
 `;
+
+export const Cloudy = styled(CloudySvg).attrs((props) => ({
+  fill: props.theme.colors.text,
+}))``;
+
+export const Wind = styled(WindSvg).attrs((props) => ({
+  fill: props.theme.colors.text,
+}))``;

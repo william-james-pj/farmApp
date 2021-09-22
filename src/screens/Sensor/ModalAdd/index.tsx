@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import Modal from "react-native-modal";
 import { RadioButtonProps } from "../../../@types/radioButton";
-import { ButtonSmall } from "../../../components/ButtonSmall";
 import { ColorSelector } from "../../../components/ColorSelector";
 
 import { TextInput } from "../../../components/TextInput";
