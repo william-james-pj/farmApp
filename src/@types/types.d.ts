@@ -34,3 +34,9 @@ type WeatherSliderItemType = {
   clock: string;
   value: string;
 };
+
+type DropdownDataType = {
+  id: number;
+  label: string;
+  value: string;
+}[];

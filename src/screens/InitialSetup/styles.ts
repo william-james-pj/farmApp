@@ -41,6 +41,7 @@ export const Row = styled.View`
 export const Footer = styled.View`
   width: 85%;
   align-items: flex-end;
+  margin-top: 30px;
 `;
 
 export const Label = styled.Text`

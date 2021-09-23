@@ -2,13 +2,6 @@ import styled from "styled-components/native";
 
 import DropDownPicker from "react-native-dropdown-picker";
 
-export const Wrapper = styled.View`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
-`;
-
 export const DropDown = styled(DropDownPicker).attrs((props) => ({
   placeholderStyle: {
     color: props.theme.colors.disabled,
@@ -41,7 +34,13 @@ export const DropDown = styled(DropDownPicker).attrs((props) => ({
     borderColor: props.theme.colors.disabled,
   },
   searchPlaceholderTextColor: props.theme.colors.disabled,
+  modalContentContainerStyle: {
+    backgroundColor: props.theme.colors.background,
+    padding: 5,
+  },
 }))`
   background: ${(props) => props.theme.colors.background};
   border-color: ${(props) => props.theme.colors.disabled};
+  z-index: -1;
+  margin-bottom: 15px;
 `;
