@@ -6,19 +6,23 @@ import { RadioButtonProps } from "../../@types/radioButton";
 import { DropdownDataType } from "../../@types/types";
 import { ButtonSmall } from "../../components/ButtonSmall";
 import { Dropdown } from "../../components/Dropdown";
+import { Loading } from "../../components/Loading";
 import { RadioGroup } from "../../components/RadioGroup";
 import { TextInput } from "../../components/TextInput";
 import { radioButtonsData } from "../../data/radioButtonData";
+import { useAuth } from "../../hooks/useAuth";
 import { getCity } from "../../utils/getCity";
 import { getState } from "../../utils/getState";
 
 import * as S from "./styles";
 
 export function InitialSetup() {
+  const { setInitialSetup } = useAuth();
   const [farmName, setFarmName] = useState("");
   const [country, setCountry] = useState("BR");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [stateData, setStateData] = useState<DropdownDataType>([]);
   const [cityData, setCityData] = useState<DropdownDataType>([]);
@@ -41,9 +45,43 @@ export function InitialSetup() {
     setCityData(data);
   };
 
+  const handleClick = async () => {
+    try {
+      if (!farmName.trim().length) return;
+
+      if (city === "" || state === "") return;
+
+      setLoading(true);
+      let radio = "";
+
+      radioButtons.forEach((element) => {
+        if (element.selected) radio = element.value || "";
+      });
+
+      await setInitialSetup({
+        farmName,
+        config: {
+          tempUnit: radio,
+        },
+        location: {
+          country,
+          state,
+          city,
+        },
+      });
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     selectedCountry();
   }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -98,7 +136,7 @@ export function InitialSetup() {
               </S.Row>
             </S.Form>
             <S.Footer>
-              <ButtonSmall text={"Finish"} onPress={() => {}} />
+              <ButtonSmall text={"Finish"} onPress={handleClick} />
             </S.Footer>
           </S.Wrapper>
         </ScrollView>

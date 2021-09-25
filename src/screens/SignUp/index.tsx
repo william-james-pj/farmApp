@@ -12,16 +12,42 @@ import { TextInput } from "../../components/TextInput";
 import { emailValidator } from "../../utils/emailValidator";
 import { passwordValidator } from "../../utils/passwordValidator";
 import { nameValidator } from "../../utils/nameValidator";
+import { useAuth } from "../../hooks/useAuth";
+import { Loading } from "../../components/Loading";
 
 import { ScreenNavigationProp } from "../../@types/types";
 
 import * as S from "./styles";
 
 export function SignUp() {
+  const { signInWithEmailAndPassword } = useAuth();
   const usenavigation = useNavigation<ScreenNavigationProp>();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSingUp = async () => {
+    try {
+      if (
+        !name.trim().length ||
+        !email.trim().length ||
+        !password.trim().length
+      )
+        return;
+
+      setLoading(true);
+      await signInWithEmailAndPassword({ email, password, name });
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -57,12 +83,7 @@ export function SignUp() {
                 errorText={"Password must be at least 6 characters"}
               />
             </S.Form>
-            <ButtonLarge
-              onPress={() => {
-                usenavigation.navigate("InitialSetup");
-              }}
-              text={"Sign up"}
-            />
+            <ButtonLarge onPress={handleSingUp} text={"Sign up"} />
             <S.Row>
               <S.Acoount>Already have an account ?</S.Acoount>
               <S.Button>

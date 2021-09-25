@@ -53,11 +53,16 @@ export const TextLabel = styled(FontAwesome5)<LabelProps>`
   font-family: ${fonts.type.text700};
 `;
 
-export const TextName = styled.Text`
+export const TextName = styled.Text.attrs(() => ({
+  numberOfLines: 1,
+}))`
   margin-left: 10px;
   font-size: ${fonts.size.normal};
   font-family: ${fonts.type.text700};
   color: ${(props) => props.theme.colors.text};
+
+  width: 60%;
+  overflow: hidden;
 `;
 
 export const ViewContent = styled.View`

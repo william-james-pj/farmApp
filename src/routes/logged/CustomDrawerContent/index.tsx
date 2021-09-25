@@ -9,12 +9,14 @@ import {
 import { RectButton } from "react-native-gesture-handler";
 
 import { IconColorMode } from "../../../components/IconColorMode";
+import { useAuth } from "../../../hooks/useAuth";
 import LogOutSvg from "../../../assets/svg/LogOut.svg";
 
 import * as S from "./styles";
 
 export function CustomDrawerContent(props: DrawerContentComponentProps) {
   const theme = useTheme();
+  const { user, logout } = useAuth();
   const routerName = props.state.routeNames;
 
   const styles = StyleSheet.create({
@@ -33,7 +35,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
           <S.ViewAvatar>
             <S.FontAwesome name={"user-alt"} size={45} />
           </S.ViewAvatar>
-          <S.TextName>Name</S.TextName>
+          <S.TextName>{user?.name}</S.TextName>
         </S.Row>
         <S.Row>
           <IconColorMode />
@@ -76,6 +78,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
               justifyContent: "space-evenly",
               flexDirection: "row",
             }}
+            onPress={() => logout()}
           >
             <LogOutSvg fill={theme.colors.disabled} />
             <S.TextLogOut>{`Log Out`}</S.TextLogOut>

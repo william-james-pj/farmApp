@@ -8,7 +8,6 @@ import {
 import { Welcome } from "../../screens/Welcome";
 import { Login } from "../../screens/Login";
 import { SignUp } from "../../screens/SignUp";
-import { InitialSetup } from "../../screens/InitialSetup";
 
 import { RootStackParamListLogout } from "../../@types/types";
 
@@ -27,7 +26,6 @@ export function Logout() {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="SignUp" component={SignUp} />
-      <Stack.Screen name="InitialSetup" component={InitialSetup} />
     </Stack.Navigator>
   );
 }

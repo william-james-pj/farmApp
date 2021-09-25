@@ -4,6 +4,9 @@ type RootStackParamListLogout = {
   Welcome: undefined;
   Login: undefined;
   SignUp: undefined;
+};
+
+type RootStackParamListSetup = {
   InitialSetup: undefined;
 };
 
@@ -40,3 +43,18 @@ type DropdownDataType = {
   label: string;
   value: string;
 }[];
+
+type UserType = {
+  id: string;
+  name?: string;
+  farmName?: string;
+  avatar?: string;
+  config?: {
+    tempUnit: string;
+  };
+  location?: {
+    country: string;
+    state: string;
+    city: string;
+  };
+};

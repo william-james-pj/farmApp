@@ -5,18 +5,21 @@ import { Header } from "../../components/Header";
 import { SensorBox } from "./SensorBox";
 import { RootStackParamListLogged } from "../../@types/types";
 
+import { useAuth } from "../../hooks/useAuth";
+
 type HomeProps = DrawerScreenProps<RootStackParamListLogged, "Home">;
 
 import * as S from "./styles";
 
 export function Home({ navigation }: HomeProps) {
+  const { user } = useAuth();
   return (
     <>
       <Header openDrawer={navigation.openDrawer} />
       <S.Wrapper>
         <S.TextContainer>
           <S.Text>Welcome</S.Text>
-          <S.FarmName>Farm Name</S.FarmName>
+          <S.FarmName>{user?.farmName}</S.FarmName>
         </S.TextContainer>
         <S.WeatherContainer>
           <S.Box>

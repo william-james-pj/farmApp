@@ -24,10 +24,13 @@ export const Text = styled.Text`
   font-family: ${fonts.type.text400};
 `;
 
-export const FarmName = styled.Text`
+export const FarmName = styled.Text.attrs(() => ({
+  numberOfLines: 1,
+}))`
   color: ${(props) => props.theme.colors.text};
   font-size: ${fonts.size.md};
   font-family: ${fonts.type.text700};
+  width: 100%;
 `;
 
 export const WeatherContainer = styled.View`
