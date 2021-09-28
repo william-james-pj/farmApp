@@ -3,6 +3,7 @@ import React from "react";
 import { ColorModeContext } from "./src/contexts/ColorModeContext";
 import { OpenModalAddProvider } from "./src/contexts/OpenModalAddContext";
 import { AuthContextProvider } from "./src/contexts/AuthContext";
+import { SensorContextProvider } from "./src/contexts/SensorContext";
 
 import { useFonts } from "expo-font";
 import {
@@ -32,9 +33,11 @@ export default function App() {
   return (
     <ColorModeContext>
       <AuthContextProvider>
-        <OpenModalAddProvider>
-          <Routes />
-        </OpenModalAddProvider>
+        <SensorContextProvider>
+          <OpenModalAddProvider>
+            <Routes />
+          </OpenModalAddProvider>
+        </SensorContextProvider>
       </AuthContextProvider>
     </ColorModeContext>
   );

@@ -11,6 +11,6 @@ export const light = {
     disabled: "rgba(200, 200, 200, 1)",
 
     white: "#FFF",
-    red: "rgba(204, 0, 0, 1)",
+    red: "rgba(231, 76, 60, 1)",
   },
 };

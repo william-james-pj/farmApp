@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DrawerScreenProps } from "@react-navigation/drawer";
 
 import { Header } from "../../components/Header";
@@ -6,6 +6,7 @@ import { SensorBox } from "./SensorBox";
 import { RootStackParamListLogged } from "../../@types/types";
 
 import { useAuth } from "../../hooks/useAuth";
+import { useSensor } from "../../hooks/useSensor";
 
 type HomeProps = DrawerScreenProps<RootStackParamListLogged, "Home">;
 
@@ -13,6 +14,84 @@ import * as S from "./styles";
 
 export function Home({ navigation }: HomeProps) {
   const { user } = useAuth();
+  const { sensorData } = useSensor();
+
+  const [tempAverage, setTempAverage] = useState("");
+  const [windAverage, setWindAverage] = useState("");
+  const [humidityAverage, setHumidityAverage] = useState("");
+  const [soilAverage, setSoilAverage] = useState("");
+
+  const getAverageTemp = () => {
+    let values = 0;
+    let leng = 0;
+
+    sensorData.forEach((item) => {
+      if (item.values.temp) {
+        values += parseFloat(item.values.temp);
+        leng++;
+      }
+    });
+
+    if (!(values / leng)) return "No sensor";
+
+    return `${(values / leng).toFixed(1)}°C`;
+  };
+
+  const getAverageWind = () => {
+    let values = 0;
+    let leng = 0;
+
+    sensorData.forEach((item) => {
+      if (item.values.wind) {
+        values += parseFloat(item.values.wind);
+        leng++;
+      }
+    });
+
+    if (!(values / leng)) return "No sensor";
+
+    return `${(values / leng).toFixed(0)}km/h`;
+  };
+
+  const getAverageHumidity = () => {
+    let values = 0;
+    let leng = 0;
+
+    sensorData.forEach((item) => {
+      if (item.values.humidity) {
+        values += parseFloat(item.values.humidity);
+        leng++;
+      }
+    });
+
+    if (!(values / leng)) return "No sensor";
+
+    return `${(values / leng).toFixed(0)}%`;
+  };
+
+  const getAverageSoil = () => {
+    let values = 0;
+    let leng = 0;
+
+    sensorData.forEach((item) => {
+      if (item.values.soil) {
+        values += parseFloat(item.values.soil);
+        leng++;
+      }
+    });
+
+    if (!(values / leng)) return "No sensor";
+
+    return `${(values / leng).toFixed(0)}%`;
+  };
+
+  useEffect(() => {
+    setTempAverage(getAverageTemp());
+    setWindAverage(getAverageWind());
+    setHumidityAverage(getAverageHumidity());
+    setSoilAverage(getAverageSoil());
+  }, [sensorData]);
+
   return (
     <>
       <Header openDrawer={navigation.openDrawer} />
@@ -56,18 +135,26 @@ export function Home({ navigation }: HomeProps) {
         </S.TextContainer>
         <S.SensorsContainer>
           <S.Row>
-            <SensorBox sensorType={"Temp"} sensorValue={"32°C"} icon="Temp" />
-            <SensorBox sensorType={"Wind"} sensorValue={"32km/h"} icon="Wind" />
+            <SensorBox
+              sensorType={"Temp"}
+              sensorValue={tempAverage}
+              icon="Temp"
+            />
+            <SensorBox
+              sensorType={"Wind"}
+              sensorValue={windAverage}
+              icon="Wind"
+            />
           </S.Row>
           <S.Row>
             <SensorBox
               sensorType={"Humidity"}
-              sensorValue={"80%"}
+              sensorValue={humidityAverage}
               icon="Humidity"
             />
             <SensorBox
               sensorType={"Soil Moisture"}
-              sensorValue={"81%"}
+              sensorValue={soilAverage}
               icon="Soil"
             />
           </S.Row>

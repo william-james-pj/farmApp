@@ -23,6 +23,13 @@ type SensorItemType = {
   id: string;
   name: string;
   color: string;
+  values: {
+    humidity?: string;
+    lighting?: string;
+    soil?: string;
+    temp?: string;
+    wind?: string;
+  };
 };
 
 type WeatherItemType = {

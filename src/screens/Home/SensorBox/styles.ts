@@ -8,8 +8,8 @@ import WindSvg from "../../../assets/svg/Wind.svg";
 
 export const Wrapper = styled.View`
   background: ${(props) => props.theme.colors.card};
-  width: 45%;
-  height: 75%;
+  width: 145px;
+  height: 115px;
   padding: 20px;
 
   border-top-left-radius: 20px;

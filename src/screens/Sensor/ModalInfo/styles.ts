@@ -15,7 +15,7 @@ export const Wrapper = styled.View`
 
 export const ModalContainer = styled.View`
   width: 110%;
-  height: 55%;
+  height: 350px;
   background: ${(props) => props.theme.colors.card};
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -47,6 +47,7 @@ export const SensorName = styled.Text`
 export const Row = styled.View`
   margin-top: 30px;
   width: 100%;
+  flex: 1;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;

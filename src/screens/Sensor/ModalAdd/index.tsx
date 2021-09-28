@@ -7,10 +7,12 @@ import { ColorSelector } from "../../../components/ColorSelector";
 import { TextInput } from "../../../components/TextInput";
 import { colorButtonsData } from "../../../data/colorButtonsData";
 import { useOpenModalAdd } from "../../../hooks/useOpenModalAdd";
+import { useSensor } from "../../../hooks/useSensor";
 
 import * as S from "./styles";
 
 export function ModalAdd() {
+  const { addSensor } = useSensor();
   const { isOpen, openModal } = useOpenModalAdd();
   const [sensorName, setsensorName] = useState("");
   const [colorButtons, setColorButtons] =
@@ -22,6 +24,24 @@ export function ModalAdd() {
 
   const closeModal = () => {
     openModal(false);
+  };
+
+  const addItem = () => {
+    if (!sensorName.trim().length) return;
+
+    let color = "";
+    colorButtons.forEach((element) => {
+      if (element.selected) color = element.value || "";
+    });
+
+    addSensor({
+      name: sensorName,
+      color,
+    });
+
+    closeModal();
+    setsensorName("");
+    setColorButtons(colorButtonsData);
   };
 
   return (
@@ -46,7 +66,7 @@ export function ModalAdd() {
             <S.Button onPress={closeModal}>
               <S.TextCancel>Cancel</S.TextCancel>
             </S.Button>
-            <S.ButtonAdd onPress={closeModal}>
+            <S.ButtonAdd onPress={addItem}>
               <S.TextAdd>Save</S.TextAdd>
             </S.ButtonAdd>
           </S.Footer>

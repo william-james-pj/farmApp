@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 
-import { RectButton } from "react-native-gesture-handler";
+import { RectButton, Swipeable } from "react-native-gesture-handler";
 import { ModalInfo } from "../ModalInfo";
+import { useSensor } from "../../../hooks/useSensor";
 import { SensorItemType } from "../../../@types/types";
 
 import * as S from "./styles";
 
 export function SensorItem({ item }: { item: SensorItemType }) {
+  const { deleteSensor } = useSensor();
   const [isModalVisible, setModalVisible] = useState(false);
 
   const styles = StyleSheet.create({
@@ -24,28 +26,47 @@ export function SensorItem({ item }: { item: SensorItemType }) {
     },
     button: {
       flex: 1,
-      height: "100%",
+      height: 45,
       flexDirection: "row",
       alignItems: "center",
       padding: 10,
     },
   });
 
+  const handleDelete = () => {
+    deleteSensor(item.id);
+  };
+
+  const rightSwipe = () => {
+    return (
+      <S.DeleteBox>
+        <S.Trash />
+      </S.DeleteBox>
+    );
+  };
+
   return (
     <>
       <S.Wrapper>
         <S.ShadowView style={styles.box}>
-          <RectButton
-            onPress={() => {
-              setModalVisible(true);
-            }}
-            style={styles.button}
+          <Swipeable
+            renderRightActions={rightSwipe}
+            onSwipeableRightOpen={handleDelete}
           >
-            <S.Square color={item.color} />
-            <S.TextContainer>
-              <S.SensorName>{item.name}</S.SensorName>
-            </S.TextContainer>
-          </RectButton>
+            <S.ItemContainer>
+              <RectButton
+                onPress={() => {
+                  setModalVisible(true);
+                }}
+                style={styles.button}
+              >
+                <S.Square color={item.color} />
+                <S.TextContainer>
+                  <S.SensorName>{item.name}</S.SensorName>
+                </S.TextContainer>
+              </RectButton>
+            </S.ItemContainer>
+          </Swipeable>
         </S.ShadowView>
       </S.Wrapper>
       <ModalInfo

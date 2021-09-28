@@ -38,7 +38,7 @@ export function ModalInfo({
               <S.Temp />
               <S.ForecastTextContainer>
                 <S.ForecastName>Temp</S.ForecastName>
-                <S.ForecastValue>32°C</S.ForecastValue>
+                <S.ForecastValue>{`${sensor.values.temp}°C`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>
 
@@ -46,7 +46,7 @@ export function ModalInfo({
               <S.Wind />
               <S.ForecastTextContainer>
                 <S.ForecastName>Wind</S.ForecastName>
-                <S.ForecastValue>32km/h</S.ForecastValue>
+                <S.ForecastValue>{`${sensor.values.wind}km/h`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>
 
@@ -54,7 +54,7 @@ export function ModalInfo({
               <S.Lighting />
               <S.ForecastTextContainer>
                 <S.ForecastName>Lighting</S.ForecastName>
-                <S.ForecastValue>32.000lx</S.ForecastValue>
+                <S.ForecastValue>{`${sensor.values.lighting}lx`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>
 
@@ -62,7 +62,7 @@ export function ModalInfo({
               <S.Humidity />
               <S.ForecastTextContainer>
                 <S.ForecastName>Humidity</S.ForecastName>
-                <S.ForecastValue>81%</S.ForecastValue>
+                <S.ForecastValue>{`${sensor.values.humidity}%`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>
 
@@ -70,7 +70,7 @@ export function ModalInfo({
               <S.Soil />
               <S.ForecastTextContainer>
                 <S.ForecastName>Soil Moisture</S.ForecastName>
-                <S.ForecastValue>81%</S.ForecastValue>
+                <S.ForecastValue>{`${sensor.values.soil}%`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>
           </S.Row>
