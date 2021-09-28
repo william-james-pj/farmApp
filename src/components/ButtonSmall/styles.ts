@@ -1,13 +1,19 @@
 import styled from "styled-components/native";
 import { fonts } from "../../styles/fonts";
 
-export const Wrapper = styled.View`
+type WrapperProps = {
+  disabled: boolean;
+};
+
+export const Wrapper = styled.View<WrapperProps>`
   background: ${(props) => props.theme.colors.primary};
   width: 80px;
   height: 45px;
 
   border-radius: 10px;
   overflow: hidden;
+
+  opacity: ${(props) => (props.disabled ? "0.5" : "1")};
 `;
 
 export const Button = styled.View`

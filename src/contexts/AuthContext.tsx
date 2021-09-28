@@ -1,13 +1,18 @@
 import React, { createContext, ReactNode, useState, useEffect } from "react";
 import { auth, firestore } from "../services/firebase";
 
-import { UserType } from "../@types/types";
+import {
+  setInitialSetupProps,
+  setUpdateProfileProps,
+  UserType,
+} from "../@types/types";
 
 type AuthContextType = {
   user: UserType | undefined;
   signInWithEmailAndPassword: (useProps: createUserProps) => Promise<void>;
   loginWithEmailAndPassword: (email: string, password: string) => Promise<void>;
   setInitialSetup: (useProps: setInitialSetupProps) => Promise<void>;
+  updateProfile: (useProps: setUpdateProfileProps) => Promise<void>;
   logout: () => void;
   errorMsg: string;
 };
@@ -20,18 +25,6 @@ type createUserProps = {
   name: string;
   email: string;
   password: string;
-};
-
-type setInitialSetupProps = {
-  farmName: string;
-  config: {
-    tempUnit: string;
-  };
-  location: {
-    country: string;
-    state: string;
-    city: string;
-  };
 };
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -89,7 +82,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
   async function setInitialSetup(userPorps: setInitialSetupProps) {
     try {
-      console.log(user?.id);
       await firestore
         .collection("Users")
         .doc(user?.id)
@@ -108,6 +100,44 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
       const userAux: UserType = {
         id: user?.id || "",
         name: user?.name || "",
+        avatar: user?.avatar,
+        farmName: userPorps.farmName,
+        config: {
+          tempUnit: userPorps.config.tempUnit,
+        },
+        location: {
+          country: userPorps.location.country,
+          state: userPorps.location.state,
+          city: userPorps.location.city,
+        },
+      };
+      setUser(userAux);
+    } catch (error: any) {
+      setErrorMsg(error.message);
+    }
+  }
+
+  async function updateProfile(userPorps: setUpdateProfileProps) {
+    try {
+      await firestore
+        .collection("Users")
+        .doc(user?.id)
+        .update({
+          name: userPorps.name,
+          farmName: userPorps.farmName,
+          config: {
+            tempUnit: userPorps.config.tempUnit,
+          },
+          location: {
+            country: userPorps.location.country,
+            state: userPorps.location.state,
+            city: userPorps.location.city,
+          },
+        });
+
+      const userAux: UserType = {
+        id: user?.id || "",
+        name: userPorps.name,
         avatar: user?.avatar,
         farmName: userPorps.farmName,
         config: {
@@ -160,6 +190,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         signInWithEmailAndPassword,
         loginWithEmailAndPassword,
         setInitialSetup,
+        updateProfile,
         logout,
         errorMsg,
       }}

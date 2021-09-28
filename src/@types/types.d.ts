@@ -58,3 +58,28 @@ type UserType = {
     city: string;
   };
 };
+
+type setInitialSetupProps = {
+  farmName: string;
+  config: {
+    tempUnit: string;
+  };
+  location: {
+    country: string;
+    state: string;
+    city: string;
+  };
+};
+
+type setUpdateProfileProps = {
+  name: string;
+  farmName: string;
+  config: {
+    tempUnit: string;
+  };
+  location: {
+    country: string;
+    state: string;
+    city: string;
+  };
+};

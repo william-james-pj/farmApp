@@ -6,12 +6,17 @@ import * as S from "./styles";
 type ButtonLargeProps = {
   text: string;
   onPress: () => void;
+  disabled?: boolean;
 };
 
-export function ButtonSmall({ onPress, text }: ButtonLargeProps) {
+export function ButtonSmall({
+  onPress,
+  text,
+  disabled = false,
+}: ButtonLargeProps) {
   return (
-    <S.Wrapper>
-      <RectButton onPress={onPress}>
+    <S.Wrapper disabled={disabled}>
+      <RectButton onPress={!disabled ? onPress : () => {}}>
         <S.Button>
           <S.Text>{text}</S.Text>
         </S.Button>

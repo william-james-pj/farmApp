@@ -15,6 +15,9 @@ import AppLoading from "expo-app-loading";
 
 import { Routes } from "./src/routes";
 
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["Setting a timer"]);
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
