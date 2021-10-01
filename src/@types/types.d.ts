@@ -32,19 +32,6 @@ type SensorItemType = {
   };
 };
 
-type WeatherItemType = {
-  id: string;
-  day: string;
-  maxValue: string;
-  minValue: string;
-};
-
-type WeatherSliderItemType = {
-  id: string;
-  clock: string;
-  value: string;
-};
-
 type DropdownDataType = {
   id: number;
   label: string;
@@ -63,6 +50,10 @@ type UserType = {
     country: string;
     state: string;
     city: string;
+  };
+  geometry?: {
+    longitude?: string;
+    latitude?: string;
   };
 };
 
@@ -89,4 +80,33 @@ type setUpdateProfileProps = {
     state: string;
     city: string;
   };
+};
+
+type CurrentWeatherType = {
+  dt?: string;
+  date?: string;
+  humidity?: string;
+  windSpeed?: string;
+  temp?: string;
+  weather?: {
+    main?: string;
+    icon?: string;
+  };
+};
+
+type HourlyWeatherType = {
+  dt?: string;
+  id: string;
+  icon?: string;
+  temp?: string;
+  time?: string;
+};
+
+type DailyWeatherType = {
+  id: string;
+  dt?: string;
+  date?: string;
+  maxValue?: string;
+  minValue?: string;
+  icon?: string;
 };

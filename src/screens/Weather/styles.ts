@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { fonts } from "../../styles/fonts";
 
 import { FlatList } from "react-native";
-import { WeatherItemType, WeatherSliderItemType } from "../../@types/types";
+import { DailyWeatherType, HourlyWeatherType } from "../../@types/types";
 
 import WindSvg from "../../assets/svg/Wind.svg";
 import HumiditySvg from "../../assets/svg/Humidity.svg";
@@ -72,14 +72,14 @@ export const SlideContainer = styled.View`
 `;
 
 export const FlatListS = styled(
-  FlatList as new () => FlatList<WeatherItemType>
+  FlatList as new () => FlatList<DailyWeatherType>
 )`
   width: 100%;
   flex: 3;
 `;
 
 export const FlatListSlide = styled(
-  FlatList as new () => FlatList<WeatherSliderItemType>
+  FlatList as new () => FlatList<HourlyWeatherType>
 )`
   width: 100%;
   flex: 1;
@@ -102,7 +102,7 @@ export const FooterView = styled.View`
 export const FooterViewHorizontal = styled.View`
   background: transparent;
   height: 100%;
-  width: 40px;
+  width: 0px;
 `;
 
 export const Wind = styled(WindSvg).attrs((props) => ({

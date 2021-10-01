@@ -1,8 +1,6 @@
 import styled from "styled-components/native";
 import { fonts } from "../../../styles/fonts";
 
-import RaySvg from "../../../assets/svg/RayIcon.svg";
-
 export const Wrapper = styled.View`
   width: 100%;
   height: 40px;
@@ -15,13 +13,14 @@ export const DayName = styled.Text`
   color: ${(props) => props.theme.colors.text};
   font-size: ${fonts.size.sm};
   font-family: ${fonts.type.text400};
-  flex: 1;
+  flex: 2;
 `;
 
 export const Grup = styled.View`
-  flex: 1;
+  flex: 2;
   flex-direction: row;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
 `;
 
 export const MaxValue = styled.Text`
@@ -40,6 +39,5 @@ export const MinValue = styled.Text`
 export const IconContainer = styled.View`
   flex: 1;
   align-items: flex-end;
+  overflow: hidden;
 `;
-
-export const Ray = styled(RaySvg).attrs((props) => ({}))``;

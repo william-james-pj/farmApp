@@ -18,12 +18,19 @@ export const Clock = styled.Text`
   color: ${(props) => props.theme.colors.text};
   font-size: ${fonts.size.sm};
   font-family: ${fonts.type.text400};
+  text-align: center;
 `;
 
 export const Temp = styled.Text`
   color: ${(props) => props.theme.colors.text};
-  font-size: ${fonts.size.md};
+  font-size: ${fonts.size.normal};
   font-family: ${fonts.type.text700};
+`;
+
+export const IconContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Sunny = styled(SunnySvg).attrs((props) => ({

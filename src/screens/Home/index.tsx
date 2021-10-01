@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 import { DrawerScreenProps } from "@react-navigation/drawer";
 
 import { Header } from "../../components/Header";
+import { Loading } from "../../components/Loading";
+import { WeatherIcons } from "../../components/WeatherIcons";
 import { SensorBox } from "./SensorBox";
 import { RootStackParamListLogged } from "../../@types/types";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useSensor } from "../../hooks/useSensor";
+import { useWeather } from "../../hooks/useWeather";
 
 type HomeProps = DrawerScreenProps<RootStackParamListLogged, "Home">;
 
@@ -15,6 +18,7 @@ import * as S from "./styles";
 export function Home({ navigation }: HomeProps) {
   const { user } = useAuth();
   const { sensorData } = useSensor();
+  const { getCurrent, loadingWeather, currentWeather } = useWeather();
 
   const [tempAverage, setTempAverage] = useState("");
   const [windAverage, setWindAverage] = useState("");
@@ -92,6 +96,16 @@ export function Home({ navigation }: HomeProps) {
     setSoilAverage(getAverageSoil());
   }, [sensorData]);
 
+  useEffect(() => {
+    getCurrent(
+      {
+        latitude: user?.geometry?.latitude || "",
+        longitude: user?.geometry?.longitude || "",
+      },
+      user?.config?.tempUnit || "celsius"
+    );
+  }, []);
+
   return (
     <>
       <Header openDrawer={navigation.openDrawer} />
@@ -105,29 +119,39 @@ export function Home({ navigation }: HomeProps) {
             <S.ButtonRect
               onPress={() => navigation.navigate("Weather")}
             ></S.ButtonRect>
-            <S.WeatherTextContainer>
-              <S.WeatherText>Monday, June 21</S.WeatherText>
-              <S.WeatherText>São Roque</S.WeatherText>
-            </S.WeatherTextContainer>
-            <S.ForecastBox>
-              <S.BallContainer>
-                <S.Ball />
-              </S.BallContainer>
-              <S.ForecastItem>
-                <S.Cloudy />
-                <S.ForecastTextContainer>
-                  <S.ForecastName>Cloudy</S.ForecastName>
-                  <S.ForecastValue>32°C</S.ForecastValue>
-                </S.ForecastTextContainer>
-              </S.ForecastItem>
-              <S.ForecastItem>
-                <S.Wind />
-                <S.ForecastTextContainer>
-                  <S.ForecastName>Wind</S.ForecastName>
-                  <S.ForecastValue>32Km/h</S.ForecastValue>
-                </S.ForecastTextContainer>
-              </S.ForecastItem>
-            </S.ForecastBox>
+            {loadingWeather ? (
+              <Loading color="primary" />
+            ) : (
+              <>
+                <S.WeatherTextContainer>
+                  <S.WeatherText>{currentWeather.date}</S.WeatherText>
+                  <S.WeatherText>{user?.location?.city}</S.WeatherText>
+                </S.WeatherTextContainer>
+                <S.ForecastBox>
+                  <S.BallContainer>
+                    <S.Ball />
+                  </S.BallContainer>
+                  <S.ForecastItem>
+                    <WeatherIcons iconId={currentWeather.weather?.icon || ""} />
+                    <S.ForecastTextContainer>
+                      <S.ForecastName>
+                        {currentWeather.weather?.main}
+                      </S.ForecastName>
+                      <S.ForecastValue>{currentWeather.temp}</S.ForecastValue>
+                    </S.ForecastTextContainer>
+                  </S.ForecastItem>
+                  <S.ForecastItem>
+                    <S.Wind />
+                    <S.ForecastTextContainer>
+                      <S.ForecastName>Wind</S.ForecastName>
+                      <S.ForecastValue>
+                        {currentWeather.windSpeed}
+                      </S.ForecastValue>
+                    </S.ForecastTextContainer>
+                  </S.ForecastItem>
+                </S.ForecastBox>
+              </>
+            )}
           </S.Box>
         </S.WeatherContainer>
         <S.TextContainer>

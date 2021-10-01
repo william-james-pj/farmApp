@@ -6,6 +6,7 @@ import {
   setUpdateProfileProps,
   UserType,
 } from "../@types/types";
+import { getGeocodificacao } from "../utils/getGeocodificacao";
 
 type AuthContextType = {
   user: UserType | undefined;
@@ -82,6 +83,12 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
   async function setInitialSetup(userPorps: setInitialSetupProps) {
     try {
+      const geometry = await getGeocodificacao(
+        userPorps.location.country,
+        userPorps.location.state,
+        userPorps.location.city
+      );
+
       await firestore
         .collection("Users")
         .doc(user?.id)
@@ -95,6 +102,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
             state: userPorps.location.state,
             city: userPorps.location.city,
           },
+          geometry,
         });
 
       const userAux: UserType = {
@@ -110,6 +118,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
           state: userPorps.location.state,
           city: userPorps.location.city,
         },
+        geometry,
       };
       setUser(userAux);
     } catch (error: any) {
@@ -119,6 +128,12 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
 
   async function updateProfile(userPorps: setUpdateProfileProps) {
     try {
+      const geometry = await getGeocodificacao(
+        userPorps.location.country,
+        userPorps.location.state,
+        userPorps.location.city
+      );
+
       await firestore
         .collection("Users")
         .doc(user?.id)
@@ -133,6 +148,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
             state: userPorps.location.state,
             city: userPorps.location.city,
           },
+          geometry,
         });
 
       const userAux: UserType = {
@@ -148,6 +164,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
           state: userPorps.location.state,
           city: userPorps.location.city,
         },
+        geometry,
       };
       setUser(userAux);
     } catch (error: any) {
@@ -174,6 +191,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
           config: userDb.data()?.config,
           location: userDb.data()?.location,
           farmName: userDb.data()?.farmName,
+          geometry: userDb.data()?.geometry,
         });
       }
     });

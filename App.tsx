@@ -4,6 +4,7 @@ import { ColorModeContext } from "./src/contexts/ColorModeContext";
 import { OpenModalAddProvider } from "./src/contexts/OpenModalAddContext";
 import { AuthContextProvider } from "./src/contexts/AuthContext";
 import { SensorContextProvider } from "./src/contexts/SensorContext";
+import { WeatherContextProvider } from "./src/contexts/WeatherContext";
 
 import { useFonts } from "expo-font";
 import {
@@ -34,9 +35,11 @@ export default function App() {
     <ColorModeContext>
       <AuthContextProvider>
         <SensorContextProvider>
-          <OpenModalAddProvider>
-            <Routes />
-          </OpenModalAddProvider>
+          <WeatherContextProvider>
+            <OpenModalAddProvider>
+              <Routes />
+            </OpenModalAddProvider>
+          </WeatherContextProvider>
         </SensorContextProvider>
       </AuthContextProvider>
     </ColorModeContext>
