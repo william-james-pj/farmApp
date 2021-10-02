@@ -11,6 +11,7 @@ import { useWeather } from "../../hooks/useWeather";
 import { DailyWeatherType, HourlyWeatherType } from "../../@types/types";
 
 import * as S from "./styles";
+import { howLongAgo } from "../../utils/howLongAgo";
 
 export function Weather() {
   const { user } = useAuth();
@@ -31,13 +32,15 @@ export function Weather() {
   };
 
   useEffect(() => {
-    getAll(
-      {
-        latitude: user?.geometry?.latitude || "",
-        longitude: user?.geometry?.longitude || "",
-      },
-      user?.config?.tempUnit || "celsius"
-    );
+    if (howLongAgo(hourlyWeather[0]?.dt)) {
+      getAll(
+        {
+          latitude: user?.geometry?.latitude || "",
+          longitude: user?.geometry?.longitude || "",
+        },
+        user?.config?.tempUnit || "celsius"
+      );
+    }
   }, []);
 
   if (loadingWeather) {

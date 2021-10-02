@@ -1,8 +1,6 @@
 import styled from "styled-components/native";
 import { fonts } from "../../../styles/fonts";
 
-import SunnySvg from "../../../assets/svg/SunnyIcon.svg";
-
 export const Wrapper = styled.View`
   background: ${(props) => props.theme.colors.primaryOpacity};
   width: 80px;
@@ -31,10 +29,4 @@ export const IconContainer = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-`;
-
-export const Sunny = styled(SunnySvg).attrs((props) => ({
-  fill: props.theme.colors.card,
-}))`
-  flex: 1;
 `;
