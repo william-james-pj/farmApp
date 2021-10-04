@@ -11,12 +11,14 @@ import { RadioGroup } from "../../components/RadioGroup";
 import { TextInput } from "../../components/TextInput";
 import { radioButtonsData } from "../../data/radioButtonData";
 import { useAuth } from "../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 import { getCity } from "../../utils/getCity";
 import { getState } from "../../utils/getState";
 
 import * as S from "./styles";
 
 export function InitialSetup() {
+  const { t } = useTranslation();
   const { setInitialSetup } = useAuth();
   const [farmName, setFarmName] = useState("");
   const [country, setCountry] = useState("BR");
@@ -91,10 +93,8 @@ export function InitialSetup() {
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <S.Wrapper>
-            <S.Title>Welcome</S.Title>
-            <S.SubTitle>
-              Before using the app, make the initial setup
-            </S.SubTitle>
+            <S.Title>{t("message:welcome")}</S.Title>
+            <S.SubTitle>{t("message:before")}</S.SubTitle>
             <S.Form>
               <TextInput
                 placeholder="Farm Name"
@@ -102,24 +102,24 @@ export function InitialSetup() {
                 value={farmName}
               />
               <S.Row>
-                <S.Label>Temperature unit</S.Label>
+                <S.Label>{t("generic:tempUnit")}</S.Label>
                 <RadioGroup
                   radioButtons={radioButtonsData}
                   onPress={onPressRadioButton}
                 />
               </S.Row>
               <S.Row>
-                <S.Label>Location</S.Label>
+                <S.Label>{t("generic:location")}</S.Label>
                 <Dropdown
                   itemsData={[{ id: 112, label: "Brasil", value: "BR" }]}
-                  placeholder={"Country"}
+                  placeholder={t("generic:country")}
                   value={country}
                   setValue={setCountry}
                   disabled={true}
                 />
                 <Dropdown
                   itemsData={stateData}
-                  placeholder={"State"}
+                  placeholder={t("generic:state")}
                   value={state}
                   setValue={setState}
                   onChangeValue={selectedState}
@@ -127,7 +127,7 @@ export function InitialSetup() {
                 <Dropdown
                   disabled={state === ""}
                   itemsData={cityData}
-                  placeholder={"City"}
+                  placeholder={t("generic:city")}
                   value={city}
                   setValue={setCity}
                   listMode={"MODAL"}
@@ -136,7 +136,7 @@ export function InitialSetup() {
               </S.Row>
             </S.Form>
             <S.Footer>
-              <ButtonSmall text={"Finish"} onPress={handleClick} />
+              <ButtonSmall text={t("generic:finish")} onPress={handleClick} />
             </S.Footer>
           </S.Wrapper>
         </ScrollView>

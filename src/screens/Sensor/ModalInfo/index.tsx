@@ -1,5 +1,6 @@
 import React from "react";
 import Modal from "react-native-modal";
+import { useTranslation } from "react-i18next";
 import { SensorItemType } from "../../../@types/types";
 
 import * as S from "./styles";
@@ -15,6 +16,7 @@ export function ModalInfo({
   setModalVisible,
   sensor,
 }: ModalInfoProps) {
+  const { t } = useTranslation();
   const toggleModal = () => {
     setModalVisible();
   };
@@ -37,7 +39,7 @@ export function ModalInfo({
             <S.ForecastItem>
               <S.Temp />
               <S.ForecastTextContainer>
-                <S.ForecastName>Temp</S.ForecastName>
+                <S.ForecastName>{t("generic:temp")}</S.ForecastName>
                 <S.ForecastValue>{`${sensor.values.temp}°C`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>
@@ -45,7 +47,7 @@ export function ModalInfo({
             <S.ForecastItem>
               <S.Wind />
               <S.ForecastTextContainer>
-                <S.ForecastName>Wind</S.ForecastName>
+                <S.ForecastName>{t("generic:wind")}</S.ForecastName>
                 <S.ForecastValue>{`${sensor.values.wind}km/h`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>
@@ -53,7 +55,7 @@ export function ModalInfo({
             <S.ForecastItem>
               <S.Lighting />
               <S.ForecastTextContainer>
-                <S.ForecastName>Lighting</S.ForecastName>
+                <S.ForecastName>{t("generic:lighting")}</S.ForecastName>
                 <S.ForecastValue>{`${sensor.values.lighting}lx`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>
@@ -61,7 +63,7 @@ export function ModalInfo({
             <S.ForecastItem>
               <S.Humidity />
               <S.ForecastTextContainer>
-                <S.ForecastName>Humidity</S.ForecastName>
+                <S.ForecastName>{t("generic:humidity")}</S.ForecastName>
                 <S.ForecastValue>{`${sensor.values.humidity}%`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>
@@ -69,7 +71,7 @@ export function ModalInfo({
             <S.ForecastItem>
               <S.Soil />
               <S.ForecastTextContainer>
-                <S.ForecastName>Soil Moisture</S.ForecastName>
+                <S.ForecastName>{t("generic:soil")}</S.ForecastName>
                 <S.ForecastValue>{`${sensor.values.soil}%`}</S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>

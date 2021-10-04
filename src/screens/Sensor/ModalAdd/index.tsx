@@ -8,10 +8,12 @@ import { TextInput } from "../../../components/TextInput";
 import { colorButtonsData } from "../../../data/colorButtonsData";
 import { useOpenModalAdd } from "../../../hooks/useOpenModalAdd";
 import { useSensor } from "../../../hooks/useSensor";
+import { useTranslation } from "react-i18next";
 
 import * as S from "./styles";
 
 export function ModalAdd() {
+  const { t } = useTranslation();
   const { addSensor } = useSensor();
   const { isOpen, openModal } = useOpenModalAdd();
   const [sensorName, setsensorName] = useState("");
@@ -48,14 +50,14 @@ export function ModalAdd() {
     <Modal isVisible={isOpen} onBackdropPress={() => closeModal()}>
       <S.Wrapper>
         <S.Modal>
-          <S.Title>Add sensor</S.Title>
+          <S.Title>{t("message:addSenso")}</S.Title>
           <TextInput
-            placeholder="Sensor name"
+            placeholder={t("generic:sensorName")}
             onChangeText={setsensorName}
             value={sensorName}
             widhtBox="100%"
           />
-          <S.Label>Color</S.Label>
+          <S.Label>{t("message:color")}</S.Label>
           <S.RowColor>
             <ColorSelector
               colorButtons={colorButtons}
@@ -64,10 +66,10 @@ export function ModalAdd() {
           </S.RowColor>
           <S.Footer>
             <S.Button onPress={closeModal}>
-              <S.TextCancel>Cancel</S.TextCancel>
+              <S.TextCancel>{t("generic:cancel")}</S.TextCancel>
             </S.Button>
             <S.ButtonAdd onPress={addItem}>
-              <S.TextAdd>Save</S.TextAdd>
+              <S.TextAdd>{t("generic:save")}</S.TextAdd>
             </S.ButtonAdd>
           </S.Footer>
         </S.Modal>

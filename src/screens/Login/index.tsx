@@ -11,6 +11,7 @@ import { TextInput } from "../../components/TextInput";
 import { Loading } from "../../components/Loading";
 
 import { useAuth } from "../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 import { emailValidator } from "../../utils/emailValidator";
 import { passwordValidator } from "../../utils/passwordValidator";
 
@@ -19,6 +20,7 @@ import { ScreenNavigationProp } from "../../@types/types";
 import * as S from "./styles";
 
 export function Login() {
+  const { t } = useTranslation();
   const { loginWithEmailAndPassword } = useAuth();
   const usenavigation = useNavigation<ScreenNavigationProp>();
   const [email, setEmail] = useState("");
@@ -50,40 +52,40 @@ export function Login() {
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <S.Wrapper>
-            <S.Title>LogIn Now</S.Title>
-            <S.SubTitle>Please login to continue using our app</S.SubTitle>
+            <S.Title>{t("message:loginNow")}</S.Title>
+            <S.SubTitle>{t("message:loginToContinue")}</S.SubTitle>
             <S.Form>
               <TextInput
-                placeholder="Email"
+                placeholder={t("generic:email")}
                 onChangeText={setEmail}
                 value={email}
                 validator={emailValidator}
-                errorText={"Please enter a valid email address"}
+                errorText={t("generic:validEmail")}
               />
               <TextInput
-                placeholder="Password"
+                placeholder={t("generic:password")}
                 onChangeText={setPassword}
                 value={password}
                 secureTextEntry={true}
                 validator={passwordValidator}
-                errorText={"Password must be at least 6 characters"}
+                errorText={t("generic:validPassword")}
               />
-              <S.TextFogot>Forgot Password?</S.TextFogot>
+              <S.TextFogot>{t("message:forgotPassWord")}</S.TextFogot>
             </S.Form>
-            <ButtonLarge onPress={handleLogin} text={"LogIn"} />
+            <ButtonLarge onPress={handleLogin} text={t("message:login")} />
             <S.Row>
-              <S.Acoount>Don’t have an account ?</S.Acoount>
+              <S.Acoount>{t("message:dontHave")}</S.Acoount>
               <S.Button>
                 <BorderlessButton
                   onPress={() => {
                     usenavigation.navigate("SignUp");
                   }}
                 >
-                  <S.ButtonText>Sign Up</S.ButtonText>
+                  <S.ButtonText>{t("message:signUp")}</S.ButtonText>
                 </BorderlessButton>
               </S.Button>
             </S.Row>
-            <S.SubTitle>Or connect with</S.SubTitle>
+            <S.SubTitle>{t("message:orConnect")}</S.SubTitle>
             <ButtonGoogle onPress={() => {}} />
           </S.Wrapper>
         </ScrollView>

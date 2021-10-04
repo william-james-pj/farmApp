@@ -10,12 +10,14 @@ import { RootStackParamListLogged } from "../../@types/types";
 import { useAuth } from "../../hooks/useAuth";
 import { useSensor } from "../../hooks/useSensor";
 import { useWeather } from "../../hooks/useWeather";
+import { useTranslation } from "react-i18next";
 
 type HomeProps = DrawerScreenProps<RootStackParamListLogged, "Home">;
 
 import * as S from "./styles";
 
 export function Home({ navigation }: HomeProps) {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { sensorData } = useSensor();
   const { getCurrent, loadingWeather, currentWeather } = useWeather();
@@ -111,7 +113,7 @@ export function Home({ navigation }: HomeProps) {
       <Header openDrawer={navigation.openDrawer} />
       <S.Wrapper>
         <S.TextContainer>
-          <S.Text>Welcome</S.Text>
+          <S.Text>{t("message:welcome")}</S.Text>
           <S.FarmName>{user?.farmName}</S.FarmName>
         </S.TextContainer>
         <S.WeatherContainer>
@@ -155,29 +157,29 @@ export function Home({ navigation }: HomeProps) {
           </S.Box>
         </S.WeatherContainer>
         <S.TextContainer>
-          <S.Text>Average of sensors</S.Text>
+          <S.Text>{t("message:average")}</S.Text>
         </S.TextContainer>
         <S.SensorsContainer>
           <S.Row>
             <SensorBox
-              sensorType={"Temp"}
+              sensorType={t("generic:temp")}
               sensorValue={tempAverage}
               icon="Temp"
             />
             <SensorBox
-              sensorType={"Wind"}
+              sensorType={t("generic:wind")}
               sensorValue={windAverage}
               icon="Wind"
             />
           </S.Row>
           <S.Row>
             <SensorBox
-              sensorType={"Humidity"}
+              sensorType={t("generic:humidity")}
               sensorValue={humidityAverage}
               icon="Humidity"
             />
             <SensorBox
-              sensorType={"Soil Moisture"}
+              sensorType={t("generic:soil")}
               sensorValue={soilAverage}
               icon="Soil"
             />

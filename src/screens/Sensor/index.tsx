@@ -6,6 +6,7 @@ import { Header } from "../../components/Header";
 import { SensorItem } from "./SensorItem";
 import { ModalAdd } from "./ModalAdd";
 import { useSensor } from "../../hooks/useSensor";
+import { useTranslation } from "react-i18next";
 
 import { RootStackParamListLogged, SensorItemType } from "../../@types/types";
 
@@ -14,6 +15,7 @@ type SensorProps = DrawerScreenProps<RootStackParamListLogged, "Sensor">;
 import * as S from "./styles";
 
 export function Sensor({ navigation }: SensorProps) {
+  const { t } = useTranslation();
   const { sensorData } = useSensor();
   const flatList = useRef<FlatList<SensorItemType>>(null);
 
@@ -25,8 +27,8 @@ export function Sensor({ navigation }: SensorProps) {
     return (
       <S.EmptyContainer>
         <S.Barcode />
-        <S.EmptyTitle>No sensor found</S.EmptyTitle>
-        <S.EmptySubTitle>Add a new sensor now</S.EmptySubTitle>
+        <S.EmptyTitle>{t("message:noSensor")}</S.EmptyTitle>
+        <S.EmptySubTitle>{t("message:addNow")}</S.EmptySubTitle>
       </S.EmptyContainer>
     );
   };
@@ -36,7 +38,7 @@ export function Sensor({ navigation }: SensorProps) {
       <Header openDrawer={navigation.openDrawer} />
       <S.Wrapper>
         <S.TitleContainer>
-          <S.Title>Sensores</S.Title>
+          <S.Title>{t("message:titleSensors")}</S.Title>
         </S.TitleContainer>
         <S.FlatListS
           ref={flatList}

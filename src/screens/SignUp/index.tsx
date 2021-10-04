@@ -13,6 +13,7 @@ import { emailValidator } from "../../utils/emailValidator";
 import { passwordValidator } from "../../utils/passwordValidator";
 import { nameValidator } from "../../utils/nameValidator";
 import { useAuth } from "../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 import { Loading } from "../../components/Loading";
 
 import { ScreenNavigationProp } from "../../@types/types";
@@ -20,6 +21,7 @@ import { ScreenNavigationProp } from "../../@types/types";
 import * as S from "./styles";
 
 export function SignUp() {
+  const { t } = useTranslation();
   const { signInWithEmailAndPassword } = useAuth();
   const usenavigation = useNavigation<ScreenNavigationProp>();
   const [name, setName] = useState("");
@@ -57,46 +59,46 @@ export function SignUp() {
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <S.Wrapper>
-            <S.Title>Sign Up Now</S.Title>
-            <S.SubTitle>Please fill the details and create account</S.SubTitle>
+            <S.Title>{t("message:signUpNow")}</S.Title>
+            <S.SubTitle>{t("message:fillDetails")}</S.SubTitle>
             <S.Form>
               <TextInput
-                placeholder="Name"
+                placeholder={t("generic:name")}
                 onChangeText={setName}
                 value={name}
                 validator={nameValidator}
-                errorText={"The name contains invalid characters"}
+                errorText={t("generic:validName")}
               />
               <TextInput
-                placeholder="Email"
+                placeholder={t("generic:email")}
                 onChangeText={setEmail}
                 value={email}
                 validator={emailValidator}
-                errorText={"Please enter a valid email address"}
+                errorText={t("generic:validEmail")}
               />
               <TextInput
-                placeholder="Password"
+                placeholder={t("generic:password")}
                 onChangeText={setPassword}
                 value={password}
                 secureTextEntry={true}
                 validator={passwordValidator}
-                errorText={"Password must be at least 6 characters"}
+                errorText={t("generic:validPassword")}
               />
             </S.Form>
-            <ButtonLarge onPress={handleSingUp} text={"Sign up"} />
+            <ButtonLarge onPress={handleSingUp} text={t("message:signUp")} />
             <S.Row>
-              <S.Acoount>Already have an account ?</S.Acoount>
+              <S.Acoount>{t("message:alreadyHave")}</S.Acoount>
               <S.Button>
                 <BorderlessButton
                   onPress={() => {
                     usenavigation.navigate("Login");
                   }}
                 >
-                  <S.ButtonText>Log in</S.ButtonText>
+                  <S.ButtonText>{t("message:login")}</S.ButtonText>
                 </BorderlessButton>
               </S.Button>
             </S.Row>
-            <S.SubTitle>Or connect with</S.SubTitle>
+            <S.SubTitle>{t("message:orConnect")}</S.SubTitle>
             <ButtonGoogle onPress={() => {}} />
           </S.Wrapper>
         </ScrollView>

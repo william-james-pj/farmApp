@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./src/translations";
+
 import { ColorModeContext } from "./src/contexts/ColorModeContext";
 import { OpenModalAddProvider } from "./src/contexts/OpenModalAddContext";
 import { AuthContextProvider } from "./src/contexts/AuthContext";

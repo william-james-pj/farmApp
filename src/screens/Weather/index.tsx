@@ -6,6 +6,7 @@ import { WeatherItem } from "./WeatherItem";
 import { WeatherSliderItem } from "./WeatherSliderItem";
 
 import { useAuth } from "../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 import { useWeather } from "../../hooks/useWeather";
 
 import { DailyWeatherType, HourlyWeatherType } from "../../@types/types";
@@ -14,6 +15,7 @@ import * as S from "./styles";
 import { howLongAgo } from "../../utils/howLongAgo";
 
 export function Weather() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const {
     getAll,
@@ -67,7 +69,7 @@ export function Weather() {
             </S.Grup>
           </S.Row>
         </S.Header>
-        <S.TextPrimary>Today</S.TextPrimary>
+        <S.TextPrimary>{t("message:today")}</S.TextPrimary>
         <S.FlatListSlide
           horizontal={true}
           removeClippedSubviews={false}
@@ -82,7 +84,7 @@ export function Weather() {
             <S.FooterViewHorizontal></S.FooterViewHorizontal>
           )}
         />
-        <S.TextPrimary>Next days</S.TextPrimary>
+        <S.TextPrimary>{t("message:nextDays")}</S.TextPrimary>
         <S.FlatListS
           removeClippedSubviews={false}
           contentContainerStyle={{ paddingBottom: 25 }}

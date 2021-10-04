@@ -10,6 +10,7 @@ import { RectButton } from "react-native-gesture-handler";
 
 import { IconColorMode } from "../../../components/IconColorMode";
 import { useAuth } from "../../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 import LogOutSvg from "../../../assets/svg/LogOut.svg";
 
 import * as S from "./styles";
@@ -17,11 +18,12 @@ import * as S from "./styles";
 export function CustomDrawerContent(props: DrawerContentComponentProps) {
   const theme = useTheme();
   const { user, logout } = useAuth();
+  const { t } = useTranslation();
   const routerName = props.state.routeNames;
 
   const styles = StyleSheet.create({
     drawerItem: {
-      width: "60%",
+      width: "75%",
       borderRadius: 20,
       overflow: "hidden",
       marginVertical: 10,
@@ -65,7 +67,20 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
             <S.IconLabel name={"user-alt"} size={20} focused={focused} />
           )}
           label={({ focused }) => (
-            <S.TextLabel focused={focused}>Profile</S.TextLabel>
+            <S.TextLabel focused={focused}>{t("message:profile")}</S.TextLabel>
+          )}
+        />
+        <DrawerItem
+          style={styles.drawerItem}
+          activeBackgroundColor={theme.colors.primaryOpacity}
+          inactiveBackgroundColor={theme.colors.background}
+          focused={routerName[props.state.index] === "Setting"}
+          onPress={() => props.navigation.navigate("Setting")}
+          icon={({ focused }) => <S.Cog focused={focused} />}
+          label={({ focused }) => (
+            <S.TextLabel focused={focused}>
+              {t("message:headerSetting")}
+            </S.TextLabel>
           )}
         />
       </S.ViewContent>
@@ -81,7 +96,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
             onPress={() => logout()}
           >
             <LogOutSvg fill={theme.colors.disabled} />
-            <S.TextLogOut>{`Log Out`}</S.TextLogOut>
+            <S.TextLogOut>{t("message:logOut")}</S.TextLogOut>
           </RectButton>
         </S.ViewButtonFooter>
       </S.ViewFooter>

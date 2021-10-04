@@ -12,6 +12,7 @@ import { radioButtonsData } from "../../data/radioButtonData";
 import { RadioGroup } from "../../components/RadioGroup";
 import { Dropdown } from "../../components/Dropdown";
 import { useAuth } from "../../hooks/useAuth";
+import { useTranslation } from "react-i18next";
 import { getCity } from "../../utils/getCity";
 import { getState } from "../../utils/getState";
 
@@ -24,6 +25,7 @@ import * as S from "./styles";
 type ProfileProps = DrawerScreenProps<RootStackParamListLogged, "Profile">;
 
 export function Profile({ navigation }: ProfileProps) {
+  const { t } = useTranslation();
   const { user, updateProfile } = useAuth();
 
   const [name, setName] = useState(user?.name || "");
@@ -143,7 +145,10 @@ export function Profile({ navigation }: ProfileProps) {
       style={{ flex: 1 }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <Header openDrawer={navigation.openDrawer} title="Edit Profile" />
+      <Header
+        openDrawer={navigation.openDrawer}
+        title={t("message:headerProfile")}
+      />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <S.Wrapper>
           <S.Row>
@@ -152,44 +157,44 @@ export function Profile({ navigation }: ProfileProps) {
             </S.ViewAvatar>
             <S.TextName>{user?.name}</S.TextName>
           </S.Row>
-          <S.TextPrimary>Account Settings</S.TextPrimary>
+          <S.TextPrimary>{t("message:account")}</S.TextPrimary>
           <S.Content>
             <TextInput
-              placeholder="Name"
+              placeholder={t("generic:name")}
               onChangeText={setName}
               value={name}
               widhtBox="100%"
             />
             <TextInput
-              placeholder="Farm name"
+              placeholder={t("generic:farmName")}
               onChangeText={setFarmName}
               value={farmName}
               widhtBox="100%"
             />
-            <S.TextSecond>Temperature unit</S.TextSecond>
+            <S.TextSecond>{t("generic:temp")}</S.TextSecond>
             <RadioGroup
               radioButtons={radioButtonsData}
               onPress={onPressRadioButton}
             />
 
-            <S.TextSecond>Location</S.TextSecond>
+            <S.TextSecond>{t("generic:location")}</S.TextSecond>
             <Dropdown
               itemsData={[{ id: 112, label: "Brasil", value: "BR" }]}
-              placeholder={"Country"}
+              placeholder={t("generic:country")}
               value={country}
               setValue={setCountry}
               disabled={true}
             />
             <Dropdown
               itemsData={stateData}
-              placeholder={"State"}
+              placeholder={t("generic:state")}
               value={state}
               setValue={setState}
               onChangeValue={selectedState}
             />
             <Dropdown
               itemsData={cityData}
-              placeholder={"City"}
+              placeholder={t("generic:city")}
               value={city}
               setValue={setCity}
               listMode={"MODAL"}
@@ -199,11 +204,11 @@ export function Profile({ navigation }: ProfileProps) {
           <S.Footer>
             <S.Button>
               <BorderlessButton onPress={handleCancel}>
-                <S.TextCancel>Cancel</S.TextCancel>
+                <S.TextCancel>{t("generic:cancel")}</S.TextCancel>
               </BorderlessButton>
             </S.Button>
             <ButtonSmall
-              text={"Save"}
+              text={t("generic:save")}
               onPress={() => handleClick()}
               disabled={buttonDisabled}
             />

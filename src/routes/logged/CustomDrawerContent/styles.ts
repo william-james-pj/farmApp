@@ -3,6 +3,7 @@ import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { fonts } from "../../../styles/fonts";
 
 import { FontAwesome5 } from "@expo/vector-icons";
+import CogSvg from "../../../assets/svg/cog.svg";
 
 type LabelProps = {
   focused: boolean;
@@ -39,6 +40,14 @@ export const ViewAvatar = styled.View`
 export const FontAwesome = styled(FontAwesome5)`
   color: ${(props) => props.theme.colors.background};
   bottom: -5px;
+`;
+
+export const Cog = styled(CogSvg).attrs((props) => ({
+  fill: props.focused ? props.theme.colors.text : props.theme.colors.disabled,
+  width: 20,
+  height: 20,
+}))`
+  margin-left: 10px;
 `;
 
 export const IconLabel = styled(FontAwesome5)<LabelProps>`

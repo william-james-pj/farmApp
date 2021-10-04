@@ -7,6 +7,7 @@ import { CustomDrawerContent } from "./CustomDrawerContent";
 import { BottomTabNavigator } from "./BottomTabNavigator";
 
 import { Profile } from "../../screens/Profile";
+import { Setting } from "../../screens/Setting";
 
 export function DrawerNavigator() {
   return (
@@ -19,6 +20,7 @@ export function DrawerNavigator() {
     >
       <Drawer.Screen name="Home" component={BottomTabNavigator} />
       <Drawer.Screen name="Profile" component={Profile} />
+      <Drawer.Screen name="Setting" component={Setting} />
     </Drawer.Navigator>
   );
 }

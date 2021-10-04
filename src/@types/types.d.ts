@@ -16,6 +16,7 @@ type RootStackParamListLogged = {
   Home: undefined;
   Sensor: undefined;
   Profile: undefined;
+  Setting: undefined;
   Weather: undefined;
 };
 
