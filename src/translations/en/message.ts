@@ -37,4 +37,7 @@ export default {
 
   today: "Today",
   nextDays: "Next days",
+
+  dateToday: "{{date, date|EEEE, MMM dd}}",
+  dateWeek: "{{date, date|EEEE}}",
 };

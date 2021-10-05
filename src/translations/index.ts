@@ -1,7 +1,14 @@
-import { NativeModules, Platform } from "react-native";
 import i18next, { ModuleType } from "i18next";
 import { initReactI18next } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { format as formatDate } from "date-fns";
+import { enUS, ptBR } from "date-fns/locale";
+
+type tlocales = {
+  [key: string]: any;
+};
+const locales: tlocales = { en_US: enUS, pt_BR: ptBR };
 
 import { br } from "./br";
 import { en } from "./en";
@@ -9,17 +16,6 @@ import { en } from "./en";
 const resources = {
   en_US: en,
   pt_BR: br,
-};
-
-type tnormalizeTranslate = {
-  [key: string]: string;
-};
-
-const normalizeTranslate: tnormalizeTranslate = {
-  en_US: "en_US",
-  pt_BR: "pt_BR",
-  en: "en_US",
-  pt_US: "pt_BR",
 };
 
 const languageDetector = {
@@ -32,12 +28,7 @@ const languageDetector = {
       return callback(storedLanguage);
     }
 
-    let phoneLanguage = null;
-    if (Platform.OS === "ios")
-      phoneLanguage = NativeModules.SettingsManager.settings.AppleLocale;
-    else phoneLanguage = NativeModules.I18Manager.localeIdentifier;
-
-    const iHaveThisLanguage = normalizeTranslate[phoneLanguage] || "pt_BR";
+    const iHaveThisLanguage = "pt_BR";
 
     return callback(iHaveThisLanguage);
   },
@@ -55,6 +46,21 @@ i18next
     compatibilityJSON: "v3",
     interpolation: {
       escapeValue: false,
+      format: (value, format, lng) => {
+        if (!value || value === "" || value === undefined || value === null) {
+          return "";
+        }
+
+        const [type, mask] = format?.split("|") || "";
+        if (type === "date") {
+          const dateFormat = formatDate(value, mask, {
+            locale: locales[lng || ""],
+          });
+          return dateFormat.charAt(0).toUpperCase() + dateFormat.slice(1);
+        }
+
+        return value;
+      },
     },
     react: {
       useSuspense: false,

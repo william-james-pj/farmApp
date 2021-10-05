@@ -85,7 +85,7 @@ type setUpdateProfileProps = {
 
 type CurrentWeatherType = {
   dt?: string;
-  date?: string;
+  dtMill?: number;
   humidity?: string;
   windSpeed?: string;
   temp?: string;
@@ -106,7 +106,7 @@ type HourlyWeatherType = {
 type DailyWeatherType = {
   id: string;
   dt?: string;
-  date?: string;
+  dtMill?: number;
   maxValue?: string;
   minValue?: string;
   icon?: string;

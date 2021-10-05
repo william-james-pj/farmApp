@@ -40,7 +40,7 @@ export function Home({ navigation }: HomeProps) {
 
     if (!(values / leng)) return "No sensor";
 
-    return `${(values / leng).toFixed(1)}°C`;
+    return `${(values / leng).toFixed(0)}°C`;
   };
 
   const getAverageWind = () => {
@@ -106,7 +106,7 @@ export function Home({ navigation }: HomeProps) {
       },
       user?.config?.tempUnit || "celsius"
     );
-  }, []);
+  }, ["", user?.config?.tempUnit]);
 
   return (
     <>
@@ -126,7 +126,13 @@ export function Home({ navigation }: HomeProps) {
             ) : (
               <>
                 <S.WeatherTextContainer>
-                  <S.WeatherText>{currentWeather.date}</S.WeatherText>
+                  <S.WeatherText>
+                    {currentWeather.dtMill
+                      ? t("message:dateToday", {
+                          date: new Date(currentWeather.dtMill || ""),
+                        })
+                      : ""}
+                  </S.WeatherText>
                   <S.WeatherText>{user?.location?.city}</S.WeatherText>
                 </S.WeatherTextContainer>
                 <S.ForecastBox>
@@ -145,7 +151,7 @@ export function Home({ navigation }: HomeProps) {
                   <S.ForecastItem>
                     <S.Wind />
                     <S.ForecastTextContainer>
-                      <S.ForecastName>Wind</S.ForecastName>
+                      <S.ForecastName>{t("generic:wind")}</S.ForecastName>
                       <S.ForecastValue>
                         {currentWeather.windSpeed}
                       </S.ForecastValue>

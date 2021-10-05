@@ -3,7 +3,6 @@ import React, { createContext, ReactNode, useState } from "react";
 import { getCurrentWeather } from "../utils/getCurrentWeather";
 import { getAllWeather } from "../utils/getAllWeather";
 
-import { formatDate } from "../utils/formatDate";
 import { formatTemp } from "../utils/formatTemp";
 import { formatTime } from "../utils/formatTime";
 import { formatWind } from "../utils/formatWind";
@@ -13,7 +12,6 @@ import {
   HourlyWeatherType,
   DailyWeatherType,
 } from "../@types/types";
-import { formatDayWeek } from "../utils/formatDayWeek";
 
 type WeatherType = {
   currentWeather: CurrentWeatherType;
@@ -43,6 +41,7 @@ export function WeatherContextProvider(props: WeatherProviderProps) {
 
   const getCurrent = async (location: LocationType, tempUnit: string) => {
     setloadingWeather(true);
+
     const current = await getCurrentWeather(
       location.longitude,
       location.latitude
@@ -71,7 +70,7 @@ export function WeatherContextProvider(props: WeatherProviderProps) {
   };
 
   const formatCurrent = (current: CurrentWeatherType, tempUnit: string) => {
-    current.date = formatDate(current.dt || "");
+    current.dtMill = Number(current.dt) * 1000;
     current.temp = formatTemp({
       value: current.temp || "",
       tempUnit: tempUnit === "celsius" ? "celsius" : "fahrenheit",
@@ -103,7 +102,7 @@ export function WeatherContextProvider(props: WeatherProviderProps) {
         value: element.minValue || "",
         tempUnit: tempUnit === "celsius" ? "celsius" : "fahrenheit",
       });
-      element.date = formatDayWeek(element.dt || "");
+      element.dtMill = Number(element.dt) * 1000;
     });
 
     setDailyWeather(daily);
