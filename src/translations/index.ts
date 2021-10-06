@@ -1,3 +1,4 @@
+import { Platform, NativeModules } from "react-native";
 import i18next, { ModuleType } from "i18next";
 import { initReactI18next } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -5,13 +6,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { format as formatDate } from "date-fns";
 import { enUS, ptBR } from "date-fns/locale";
 
+import { br } from "./br";
+import { en } from "./en";
+
 type tlocales = {
   [key: string]: any;
 };
 const locales: tlocales = { en_US: enUS, pt_BR: ptBR };
 
-import { br } from "./br";
-import { en } from "./en";
+const normalizeTranslate: tlocales = {
+  en_US: "en_US",
+  pt_BR: "pt_BR",
+  en: "en_US",
+  pt_US: "pt_BR",
+};
 
 const resources = {
   en_US: en,
@@ -24,13 +32,16 @@ const languageDetector = {
   detect: async (callback: any) => {
     const storedLanguage = await AsyncStorage.getItem("language");
 
-    if (storedLanguage) {
-      return callback(storedLanguage);
-    }
+    if (storedLanguage) return callback(storedLanguage);
 
-    const iHaveThisLanguage = "pt_BR";
+    let language = null;
+    if (Platform.OS === "ios")
+      language = NativeModules.SettingsManager.settings.AppleLocale;
+    else language = NativeModules.I18nManager.localeIdentifier;
 
-    return callback(iHaveThisLanguage);
+    let translateNormalize = normalizeTranslate[language] || "pt_BR";
+
+    return callback(translateNormalize);
   },
   init: () => {},
   cacheUserLanguage: (language: string) => {
