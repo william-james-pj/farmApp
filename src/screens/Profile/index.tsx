@@ -12,6 +12,7 @@ import { radioButtonsData } from "../../data/radioButtonData";
 import { RadioGroup } from "../../components/RadioGroup";
 import { Dropdown } from "../../components/Dropdown";
 import { useAuth } from "../../hooks/useAuth";
+import { useWeather } from "../../hooks/useWeather";
 import { useTranslation } from "react-i18next";
 import { getCity } from "../../utils/getCity";
 import { getState } from "../../utils/getState";
@@ -27,6 +28,7 @@ type ProfileProps = DrawerScreenProps<RootStackParamListLogged, "Profile">;
 export function Profile({ navigation }: ProfileProps) {
   const { t } = useTranslation();
   const { user, updateProfile } = useAuth();
+  const { getAll, hourlyWeather } = useWeather();
 
   const [name, setName] = useState(user?.name || "");
   const [farmName, setFarmName] = useState(user?.farmName || "");
@@ -101,6 +103,16 @@ export function Profile({ navigation }: ProfileProps) {
         },
       });
       setLoadingProfile(false);
+
+      if (hourlyWeather.length > 0) {
+        getAll(
+          {
+            latitude: user?.geometry?.latitude || "",
+            longitude: user?.geometry?.longitude || "",
+          },
+          radio
+        );
+      }
     } catch (error) {
       setLoadingProfile(false);
       console.log(error);

@@ -134,6 +134,24 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         userPorps.location.city
       );
 
+      const userAux: UserType = {
+        id: user?.id || "",
+        name: userPorps.name,
+        avatar: user?.avatar,
+        farmName: userPorps.farmName,
+        config: {
+          tempUnit: userPorps.config.tempUnit,
+        },
+        location: {
+          country: userPorps.location.country,
+          state: userPorps.location.state,
+          city: userPorps.location.city,
+        },
+        geometry,
+      };
+
+      setUser(userAux);
+
       await firestore
         .collection("Users")
         .doc(user?.id)
@@ -150,23 +168,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
           },
           geometry,
         });
-
-      const userAux: UserType = {
-        id: user?.id || "",
-        name: userPorps.name,
-        avatar: user?.avatar,
-        farmName: userPorps.farmName,
-        config: {
-          tempUnit: userPorps.config.tempUnit,
-        },
-        location: {
-          country: userPorps.location.country,
-          state: userPorps.location.state,
-          city: userPorps.location.city,
-        },
-        geometry,
-      };
-      setUser(userAux);
     } catch (error: any) {
       setErrorMsg(error.message);
     }
