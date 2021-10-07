@@ -14,8 +14,9 @@ type ScreenNavigationProp = NativeStackNavigationProp<RootStackParamListLogout>;
 
 type RootStackParamListLogged = {
   Home: undefined;
-  Sensor: undefined;
+  Guide: undefined;
   Profile: undefined;
+  Sensor: undefined;
   Setting: undefined;
   Weather: undefined;
 };
@@ -110,4 +111,10 @@ type DailyWeatherType = {
   maxValue?: string;
   minValue?: string;
   icon?: string;
+};
+
+type GuideBoxType = {
+  id: string;
+  title: string;
+  description: string;
 };

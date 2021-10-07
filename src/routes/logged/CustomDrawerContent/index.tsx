@@ -74,6 +74,17 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
           style={styles.drawerItem}
           activeBackgroundColor={theme.colors.primaryOpacity}
           inactiveBackgroundColor={theme.colors.background}
+          focused={routerName[props.state.index] === "Guide"}
+          onPress={() => props.navigation.navigate("Guide")}
+          icon={({ focused }) => <S.Info focused={focused} />}
+          label={({ focused }) => (
+            <S.TextLabel focused={focused}>{t("message:guide")}</S.TextLabel>
+          )}
+        />
+        <DrawerItem
+          style={styles.drawerItem}
+          activeBackgroundColor={theme.colors.primaryOpacity}
+          inactiveBackgroundColor={theme.colors.background}
           focused={routerName[props.state.index] === "Setting"}
           onPress={() => props.navigation.navigate("Setting")}
           icon={({ focused }) => <S.Cog focused={focused} />}

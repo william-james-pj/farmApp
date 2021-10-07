@@ -4,6 +4,7 @@ import { fonts } from "../../../styles/fonts";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 import CogSvg from "../../../assets/svg/cog.svg";
+import InfoSvg from "../../../assets/svg/InfoSvg.svg";
 
 type LabelProps = {
   focused: boolean;
@@ -42,14 +43,6 @@ export const FontAwesome = styled(FontAwesome5)`
   bottom: -5px;
 `;
 
-export const Cog = styled(CogSvg).attrs((props) => ({
-  fill: props.focused ? props.theme.colors.text : props.theme.colors.disabled,
-  width: 20,
-  height: 20,
-}))`
-  margin-left: 10px;
-`;
-
 export const IconLabel = styled(FontAwesome5)<LabelProps>`
   color: ${(props) =>
     props.focused ? props.theme.colors.text : props.theme.colors.disabled};
@@ -60,18 +53,6 @@ export const TextLabel = styled(FontAwesome5)<LabelProps>`
   color: ${(props) =>
     props.focused ? props.theme.colors.text : props.theme.colors.disabled};
   font-family: ${fonts.type.text700};
-`;
-
-export const TextName = styled.Text.attrs(() => ({
-  numberOfLines: 1,
-}))`
-  margin-left: 10px;
-  font-size: ${fonts.size.normal};
-  font-family: ${fonts.type.text700};
-  color: ${(props) => props.theme.colors.text};
-
-  width: 60%;
-  overflow: hidden;
 `;
 
 export const ViewContent = styled.View`
@@ -97,4 +78,32 @@ export const TextLogOut = styled.Text`
   font-size: ${fonts.size.sm};
   font-family: ${fonts.type.text700};
   color: ${(props) => props.theme.colors.disabled};
+`;
+
+export const TextName = styled.Text.attrs(() => ({
+  numberOfLines: 1,
+}))`
+  margin-left: 10px;
+  font-size: ${fonts.size.normal};
+  font-family: ${fonts.type.text700};
+  color: ${(props) => props.theme.colors.text};
+
+  width: 60%;
+  overflow: hidden;
+`;
+
+export const Cog = styled(CogSvg).attrs((props) => ({
+  fill: props.focused ? props.theme.colors.text : props.theme.colors.disabled,
+  width: 20,
+  height: 20,
+}))`
+  margin-left: 10px;
+`;
+
+export const Info = styled(InfoSvg).attrs((props) => ({
+  fill: props.focused ? props.theme.colors.text : props.theme.colors.disabled,
+  width: 20,
+  height: 20,
+}))`
+  margin-left: 10px;
 `;

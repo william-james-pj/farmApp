@@ -40,4 +40,11 @@ export default {
 
   dateToday: "{{date, date|EEE, dd MMM}}",
   dateWeek: "{{date, date|EEE}}",
+
+  guide: "Guia",
+  guideHeader: "Guias",
+  guideTitle: "Como usar e configurar nossos produtos",
+  guideSubTitle:
+    "Um guia passo a passo sobre como usar nossos produtos e aplicativo",
+  guideStart: "Começar",
 };
