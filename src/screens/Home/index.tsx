@@ -38,7 +38,7 @@ export function Home({ navigation }: HomeProps) {
       }
     });
 
-    if (!(values / leng)) return "No sensor";
+    if (!(values / leng)) return "NaN";
 
     return `${(values / leng).toFixed(0)}°C`;
   };
@@ -54,7 +54,7 @@ export function Home({ navigation }: HomeProps) {
       }
     });
 
-    if (!(values / leng)) return "No sensor";
+    if (!(values / leng)) return "NaN";
 
     return `${(values / leng).toFixed(0)}km/h`;
   };
@@ -70,7 +70,7 @@ export function Home({ navigation }: HomeProps) {
       }
     });
 
-    if (!(values / leng)) return "No sensor";
+    if (!(values / leng)) return "NaN";
 
     return `${(values / leng).toFixed(0)}%`;
   };
@@ -86,7 +86,7 @@ export function Home({ navigation }: HomeProps) {
       }
     });
 
-    if (!(values / leng)) return "No sensor";
+    if (!(values / leng)) return "NaN";
 
     return `${(values / leng).toFixed(0)}%`;
   };
@@ -169,24 +169,34 @@ export function Home({ navigation }: HomeProps) {
           <S.Row>
             <SensorBox
               sensorType={t("generic:temp")}
-              sensorValue={tempAverage}
+              sensorValue={
+                tempAverage === "NaN" ? t("generic:noSensor") : tempAverage
+              }
               icon="Temp"
             />
             <SensorBox
               sensorType={t("generic:wind")}
-              sensorValue={windAverage}
+              sensorValue={
+                windAverage === "NaN" ? t("generic:noSensor") : windAverage
+              }
               icon="Wind"
             />
           </S.Row>
           <S.Row>
             <SensorBox
               sensorType={t("generic:humidity")}
-              sensorValue={humidityAverage}
+              sensorValue={
+                humidityAverage === "NaN"
+                  ? t("generic:noSensor")
+                  : humidityAverage
+              }
               icon="Humidity"
             />
             <SensorBox
               sensorType={t("generic:soil")}
-              sensorValue={soilAverage}
+              sensorValue={
+                soilAverage === "NaN" ? t("generic:noSensor") : soilAverage
+              }
               icon="Soil"
             />
           </S.Row>

@@ -4,6 +4,7 @@ export default {
   humidity: "Umidade",
   soil: "Umi. do solo",
   lighting: "Iluminação",
+  noSensor: "Sem sensor",
 
   cancel: "Cancelar",
   save: "Salvar",

@@ -4,6 +4,7 @@ export default {
   humidity: "Humidity",
   soil: "Soil Moisture",
   lighting: "Lighting",
+  noSensor: "No sensor",
 
   cancel: "Cancel",
   save: "Save",
