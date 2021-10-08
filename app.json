@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "farmApp",
-    "slug": "farmApp",
+    "name": "GrowTech",
+    "slug": "GrowTech",
     "version": "1.0.0",
     "orientation": "portrait",
     "platforms": ["android", "ios"],
@@ -18,11 +18,11 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.facens.farmapp",
+      "bundleIdentifier": "com.facens.growtech",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.facens.farmapp",
+      "package": "com.facens.growtech",
       "versionCode": 1
     },
     "web": {

@@ -13,7 +13,7 @@ interface HeaderProps {
 
 export function Header({
   openDrawer = () => {},
-  title = "Farm App",
+  title = "GrowTech",
   back = false,
 }: HeaderProps) {
   const usenavigation = useNavigation();
