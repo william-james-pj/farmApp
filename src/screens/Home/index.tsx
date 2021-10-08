@@ -106,7 +106,7 @@ export function Home({ navigation }: HomeProps) {
       },
       user?.config?.tempUnit || "celsius"
     );
-  }, ["", user?.config?.tempUnit, user?.geometry]);
+  }, [""]);
 
   return (
     <>

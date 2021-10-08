@@ -28,7 +28,7 @@ type ProfileProps = DrawerScreenProps<RootStackParamListLogged, "Profile">;
 export function Profile({ navigation }: ProfileProps) {
   const { t } = useTranslation();
   const { user, updateProfile } = useAuth();
-  const { getAll, hourlyWeather } = useWeather();
+  const { getAll, getCurrent, hourlyWeather } = useWeather();
 
   const [name, setName] = useState(user?.name || "");
   const [farmName, setFarmName] = useState(user?.farmName || "");
@@ -103,6 +103,14 @@ export function Profile({ navigation }: ProfileProps) {
         },
       });
       setLoadingProfile(false);
+
+      getCurrent(
+        {
+          latitude: user?.geometry?.latitude || "",
+          longitude: user?.geometry?.longitude || "",
+        },
+        radio
+      );
 
       if (hourlyWeather.length > 0) {
         getAll(
