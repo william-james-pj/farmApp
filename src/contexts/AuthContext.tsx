@@ -193,6 +193,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
           location: userDb.data()?.location,
           farmName: userDb.data()?.farmName,
           geometry: userDb.data()?.geometry,
+          sensors: userDb.data()?.sensors,
         });
       }
     });

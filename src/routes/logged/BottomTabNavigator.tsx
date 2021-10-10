@@ -20,7 +20,7 @@ export function BottomTabNavigator({ navigation }: BottomTabBarProps) {
   const theme = useTheme();
 
   const navigateToSensor = () => {
-    navigation.navigate("Sensor");
+    navigation.navigate("QRCodeRead");
   };
 
   const styles = StyleSheet.create({

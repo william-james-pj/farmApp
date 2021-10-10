@@ -46,4 +46,9 @@ export default {
   guideTitle: "How to use and configure our products",
   guideSubTitle: "A step by step guide on how to use our products and app",
   guideStart: "Get starter",
+
+  placeQr: "Put the QR code inside the area",
+  scanning: "Scanning will start automatically",
+  codeInvalid: "Code invalid",
+  notFound: "Sensor not found",
 };

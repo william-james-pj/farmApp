@@ -9,6 +9,7 @@ import { BottomTabNavigator } from "./BottomTabNavigator";
 import { Guide } from "../../screens/Guide";
 import { Profile } from "../../screens/Profile";
 import { Setting } from "../../screens/Setting";
+import { QRCodeRead } from "../../screens/QRCodeRead";
 
 export function DrawerNavigator() {
   return (
@@ -23,6 +24,7 @@ export function DrawerNavigator() {
       <Drawer.Screen name="Profile" component={Profile} />
       <Drawer.Screen name="Setting" component={Setting} />
       <Drawer.Screen name="Guide" component={Guide} />
+      <Drawer.Screen name="QRCodeRead" component={QRCodeRead} />
     </Drawer.Navigator>
   );
 }

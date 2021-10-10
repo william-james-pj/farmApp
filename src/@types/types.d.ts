@@ -19,13 +19,14 @@ type RootStackParamListLogged = {
   Sensor: undefined;
   Setting: undefined;
   Weather: undefined;
+  QRCodeRead: undefined;
 };
 
 type SensorItemType = {
   id: string;
   name: string;
   color: string;
-  values: {
+  values?: {
     humidity?: string;
     lighting?: string;
     soil?: string;
@@ -57,6 +58,7 @@ type UserType = {
     longitude?: string;
     latitude?: string;
   };
+  sensors?: Array<SensorItemType>;
 };
 
 type setInitialSetupProps = {

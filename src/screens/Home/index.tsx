@@ -19,7 +19,7 @@ import * as S from "./styles";
 export function Home({ navigation }: HomeProps) {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { sensorData } = useSensor();
+  const { sensorData, loadData } = useSensor();
   const { getCurrent, loadingWeather, currentWeather } = useWeather();
 
   const [tempAverage, setTempAverage] = useState("");
@@ -32,8 +32,8 @@ export function Home({ navigation }: HomeProps) {
     let leng = 0;
 
     sensorData.forEach((item) => {
-      if (item.values.temp) {
-        values += parseFloat(item.values.temp);
+      if (item.values?.temp) {
+        values += parseFloat(item.values?.temp);
         leng++;
       }
     });
@@ -48,8 +48,8 @@ export function Home({ navigation }: HomeProps) {
     let leng = 0;
 
     sensorData.forEach((item) => {
-      if (item.values.wind) {
-        values += parseFloat(item.values.wind);
+      if (item.values?.wind) {
+        values += parseFloat(item.values?.wind);
         leng++;
       }
     });
@@ -64,8 +64,8 @@ export function Home({ navigation }: HomeProps) {
     let leng = 0;
 
     sensorData.forEach((item) => {
-      if (item.values.humidity) {
-        values += parseFloat(item.values.humidity);
+      if (item.values?.humidity) {
+        values += parseFloat(item.values?.humidity);
         leng++;
       }
     });
@@ -80,8 +80,8 @@ export function Home({ navigation }: HomeProps) {
     let leng = 0;
 
     sensorData.forEach((item) => {
-      if (item.values.soil) {
-        values += parseFloat(item.values.soil);
+      if (item.values?.soil) {
+        values += parseFloat(item.values?.soil);
         leng++;
       }
     });
@@ -106,6 +106,8 @@ export function Home({ navigation }: HomeProps) {
       },
       user?.config?.tempUnit || "celsius"
     );
+
+    loadData(user?.sensors || []);
   }, [""]);
 
   return (

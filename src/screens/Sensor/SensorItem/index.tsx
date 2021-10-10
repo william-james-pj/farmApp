@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 
 import { RectButton, Swipeable } from "react-native-gesture-handler";
 import { ModalInfo } from "../ModalInfo";
+import { useAuth } from "../../../hooks/useAuth";
 import { useSensor } from "../../../hooks/useSensor";
 import { SensorItemType } from "../../../@types/types";
 
@@ -10,6 +11,7 @@ import * as S from "./styles";
 
 export function SensorItem({ item }: { item: SensorItemType }) {
   const { deleteSensor } = useSensor();
+  const { user } = useAuth();
   const [isModalVisible, setModalVisible] = useState(false);
 
   const styles = StyleSheet.create({
@@ -34,7 +36,7 @@ export function SensorItem({ item }: { item: SensorItemType }) {
   });
 
   const handleDelete = () => {
-    deleteSensor(item.id);
+    deleteSensor(item.id, user?.id || "");
   };
 
   const rightSwipe = () => {

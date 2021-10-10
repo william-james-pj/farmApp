@@ -2,7 +2,6 @@ import React from "react";
 
 import { Path } from "react-native-svg";
 import PlusSVG from "../../../assets/svg/Plus.svg";
-import { ModalAdd } from "../../../screens/Sensor/ModalAdd";
 import { useOpenModalAdd } from "../../../hooks/useOpenModalAdd";
 
 import * as S from "./styles";
@@ -13,11 +12,8 @@ interface FloatingButtonProps {
 }
 
 export function FloatingButton({ bgColor, navigate }: FloatingButtonProps) {
-  const { openModal } = useOpenModalAdd();
-
   const changeClick = () => {
     navigate();
-    openModal(true);
   };
 
   return (

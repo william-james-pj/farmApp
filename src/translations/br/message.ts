@@ -47,4 +47,9 @@ export default {
   guideSubTitle:
     "Um guia passo a passo sobre como usar nossos produtos e aplicativo",
   guideStart: "Começar",
+
+  placeQr: "Coloque o código QR dentro da área",
+  scanning: "A digitalização começará automaticamente",
+  codeInvalid: "Código inválido",
+  notFound: "Sensor não encontrado",
 };

@@ -6,6 +6,7 @@ import { ColorSelector } from "../../../components/ColorSelector";
 
 import { TextInput } from "../../../components/TextInput";
 import { colorButtonsData } from "../../../data/colorButtonsData";
+import { useAuth } from "../../../hooks/useAuth";
 import { useOpenModalAdd } from "../../../hooks/useOpenModalAdd";
 import { useSensor } from "../../../hooks/useSensor";
 import { useTranslation } from "react-i18next";
@@ -16,6 +17,8 @@ export function ModalAdd() {
   const { t } = useTranslation();
   const { addSensor } = useSensor();
   const { isOpen, openModal } = useOpenModalAdd();
+  const { user } = useAuth();
+
   const [sensorName, setsensorName] = useState("");
   const [colorButtons, setColorButtons] =
     useState<RadioButtonProps[]>(colorButtonsData);
@@ -28,7 +31,7 @@ export function ModalAdd() {
     openModal(false);
   };
 
-  const addItem = () => {
+  const addItem = async () => {
     if (!sensorName.trim().length) return;
 
     let color = "";
@@ -36,10 +39,13 @@ export function ModalAdd() {
       if (element.selected) color = element.value || "";
     });
 
-    addSensor({
-      name: sensorName,
-      color,
-    });
+    await addSensor(
+      {
+        name: sensorName,
+        color,
+      },
+      user?.id || ""
+    );
 
     closeModal();
     setsensorName("");
