@@ -6,7 +6,7 @@ export const Wrapper = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
+  padding: 20px 20px;
 `;
 
 export const Title = styled.Text`
@@ -20,6 +20,7 @@ export const SubTitle = styled.Text`
   color: ${(props) => props.theme.colors.disabled};
   font-size: ${fonts.size.sm};
   font-family: ${fonts.type.text400};
+  text-align: center;
 `;
 
 export const Form = styled.View`

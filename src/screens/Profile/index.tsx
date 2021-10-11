@@ -12,14 +12,13 @@ import { radioButtonsData } from "../../data/radioButtonData";
 import { RadioGroup } from "../../components/RadioGroup";
 import { Dropdown } from "../../components/Dropdown";
 import { useAuth } from "../../hooks/useAuth";
-import { useWeather } from "../../hooks/useWeather";
+import { useSetting } from "../../hooks/useSetting";
 import { useTranslation } from "react-i18next";
+import { useWeather } from "../../hooks/useWeather";
 import { getCity } from "../../utils/getCity";
 import { getState } from "../../utils/getState";
 
-import { DropdownDataType } from "../../@types/types";
-import { RadioButtonProps } from "../../@types/radioButton";
-import { RootStackParamListLogged } from "../../@types/types";
+import { DropdownDataType, RootStackParamListLogged } from "../../@types/types";
 
 import * as S from "./styles";
 
@@ -27,6 +26,7 @@ type ProfileProps = DrawerScreenProps<RootStackParamListLogged, "Profile">;
 
 export function Profile({ navigation }: ProfileProps) {
   const { t } = useTranslation();
+  const { objSetting } = useSetting();
   const { user, updateProfile } = useAuth();
   const { getAll, getCurrent, hourlyWeather } = useWeather();
 
@@ -37,12 +37,6 @@ export function Profile({ navigation }: ProfileProps) {
   const [city, setCity] = useState(user?.location?.city || "");
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
-
-  const [radioButtons, setRadioButtons] = useState<RadioButtonProps[]>([]);
-
-  function onPressRadioButton(radioButtonsArray: RadioButtonProps[]) {
-    setRadioButtons(radioButtonsArray);
-  }
 
   const [stateData, setStateData] = useState<DropdownDataType>([]);
   const [cityData, setCityData] = useState<DropdownDataType>([]);
@@ -58,22 +52,12 @@ export function Profile({ navigation }: ProfileProps) {
     setCityData(data);
   };
 
-  const radioBunttonsCorrecting = (): RadioButtonProps[] => {
-    return radioButtonsData.map((element) => {
-      if (element.value === user?.config?.tempUnit) element.selected = true;
-      else element.selected = false;
-
-      return element;
-    });
-  };
-
   const handleCancel = () => {
     setName(user?.name || "");
     setFarmName(user?.farmName || "");
     setCountry(user?.location?.country || "");
     setState(user?.location?.state || "");
     setCity(user?.location?.city || "");
-    setRadioButtons(radioBunttonsCorrecting());
   };
 
   const handleClick = async () => {
@@ -84,32 +68,22 @@ export function Profile({ navigation }: ProfileProps) {
 
       setLoadingProfile(true);
 
-      let radio = "";
-
-      radioButtons.forEach((element) => {
-        if (element.selected) radio = element.value || "";
-      });
-
       await updateProfile({
         name,
         farmName,
-        config: {
-          tempUnit: radio,
-        },
         location: {
           country,
           state,
           city,
         },
       });
-      setLoadingProfile(false);
 
       getCurrent(
         {
           latitude: user?.geometry?.latitude || "",
           longitude: user?.geometry?.longitude || "",
         },
-        radio
+        objSetting.tempUnit
       );
 
       if (hourlyWeather.length > 0) {
@@ -118,9 +92,10 @@ export function Profile({ navigation }: ProfileProps) {
             latitude: user?.geometry?.latitude || "",
             longitude: user?.geometry?.longitude || "",
           },
-          radio
+          objSetting.tempUnit
         );
       }
+      setLoadingProfile(false);
     } catch (error) {
       setLoadingProfile(false);
       console.log(error);
@@ -128,18 +103,12 @@ export function Profile({ navigation }: ProfileProps) {
   };
 
   const disabled = () => {
-    let radio = "";
-    radioButtons.forEach((element) => {
-      if (element.selected) radio = element.value || "";
-    });
-
     if (
       name === user?.name &&
       farmName === user?.farmName &&
       country === user?.location?.country &&
       state === user?.location?.state &&
-      city === user?.location?.city &&
-      radio === user?.config?.tempUnit
+      city === user?.location?.city
     )
       return true;
     else return false;
@@ -148,13 +117,11 @@ export function Profile({ navigation }: ProfileProps) {
   useEffect(() => {
     selectedCountry();
     selectedState();
-
-    setRadioButtons(radioBunttonsCorrecting());
   }, []);
 
   useEffect(() => {
     setButtonDisabled(disabled());
-  }, [name, farmName, country, state, city, radioButtons]);
+  }, [name, farmName, country, state, city]);
 
   if (loadingProfile) {
     return <Loading />;
@@ -191,12 +158,6 @@ export function Profile({ navigation }: ProfileProps) {
               value={farmName}
               widhtBox="100%"
             />
-            <S.TextSecond>{t("generic:temp")}</S.TextSecond>
-            <RadioGroup
-              radioButtons={radioButtonsData}
-              onPress={onPressRadioButton}
-            />
-
             <S.TextSecond>{t("generic:location")}</S.TextSecond>
             <Dropdown
               itemsData={[{ id: 112, label: "Brasil", value: "BR" }]}

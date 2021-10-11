@@ -1,9 +1,9 @@
 type formatTempProps = {
-  value: string;
+  celsius: string;
   tempUnit: "celsius" | "fahrenheit";
 };
 
-export const formatTemp = ({ value, tempUnit }: formatTempProps): string => {
-  if (tempUnit === "celsius") return `${parseFloat(value).toFixed(0)} °C`;
-  return `${(parseFloat(value) * (9 / 5) + 32).toFixed(0)} °F`;
+export const formatTemp = ({ celsius, tempUnit }: formatTempProps): string => {
+  if (tempUnit === "celsius") return `${parseFloat(celsius).toFixed(0)} °C`;
+  return `${(parseFloat(celsius) * (9 / 5) + 32).toFixed(0)} °F`;
 };

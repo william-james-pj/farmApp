@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { tempUnitType } from "../../@types/types";
+
 import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RadioButtonProps } from "../../@types/radioButton";
@@ -11,6 +13,7 @@ import { RadioGroup } from "../../components/RadioGroup";
 import { TextInput } from "../../components/TextInput";
 import { radioButtonsData } from "../../data/radioButtonData";
 import { useAuth } from "../../hooks/useAuth";
+import { useSetting } from "../../hooks/useSetting";
 import { useTranslation } from "react-i18next";
 import { getCity } from "../../utils/getCity";
 import { getState } from "../../utils/getState";
@@ -20,6 +23,8 @@ import * as S from "./styles";
 export function InitialSetup() {
   const { t } = useTranslation();
   const { setInitialSetup } = useAuth();
+  const { setTemp } = useSetting();
+
   const [farmName, setFarmName] = useState("");
   const [country, setCountry] = useState("BR");
   const [state, setState] = useState("");
@@ -54,17 +59,15 @@ export function InitialSetup() {
       if (city === "" || state === "") return;
 
       setLoading(true);
-      let radio = "";
 
+      let radio: tempUnitType = "celsius";
       radioButtons.forEach((element) => {
-        if (element.selected) radio = element.value || "";
+        if (element.selected) radio = (element.value as tempUnitType) || "";
       });
+      await setTemp(radio);
 
       await setInitialSetup({
         farmName,
-        config: {
-          tempUnit: radio,
-        },
         location: {
           country,
           state,

@@ -4,19 +4,21 @@ import { Header } from "../../components/Header";
 import { Loading } from "../../components/Loading";
 import { WeatherItem } from "./WeatherItem";
 import { WeatherSliderItem } from "./WeatherSliderItem";
+import { howLongAgo } from "../../utils/howLongAgo";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import { useWeather } from "../../hooks/useWeather";
+import { useSetting } from "../../hooks/useSetting";
 
 import { DailyWeatherType, HourlyWeatherType } from "../../@types/types";
 
 import * as S from "./styles";
-import { howLongAgo } from "../../utils/howLongAgo";
 
 export function Weather() {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const { objSetting } = useSetting();
   const {
     getAll,
     loadingWeather,
@@ -40,7 +42,7 @@ export function Weather() {
           latitude: user?.geometry?.latitude || "",
           longitude: user?.geometry?.longitude || "",
         },
-        user?.config?.tempUnit || "celsius"
+        objSetting.tempUnit
       );
     }
   }, []);

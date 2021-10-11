@@ -1,9 +1,11 @@
 import React from "react";
 import Modal from "react-native-modal";
 import { useTranslation } from "react-i18next";
+import { useSetting } from "../../../hooks/useSetting";
 import { SensorItemType } from "../../../@types/types";
 
 import * as S from "./styles";
+import { formatTemp } from "../../../utils/formatTemp";
 
 type ModalInfoProps = {
   isModalVisible: boolean;
@@ -17,6 +19,7 @@ export function ModalInfo({
   sensor,
 }: ModalInfoProps) {
   const { t } = useTranslation();
+  const { objSetting } = useSetting();
   const toggleModal = () => {
     setModalVisible();
   };
@@ -41,7 +44,12 @@ export function ModalInfo({
               <S.ForecastTextContainer>
                 <S.ForecastName>{t("generic:temp")}</S.ForecastName>
                 <S.ForecastValue>
-                  {sensor.values?.temp ? `${sensor.values?.temp || ""}°C` : ""}
+                  {sensor.values?.temp
+                    ? formatTemp({
+                        celsius: sensor.values?.temp,
+                        tempUnit: objSetting.tempUnit,
+                      })
+                    : ""}
                 </S.ForecastValue>
               </S.ForecastTextContainer>
             </S.ForecastItem>

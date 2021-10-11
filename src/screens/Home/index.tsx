@@ -6,9 +6,11 @@ import { Loading } from "../../components/Loading";
 import { WeatherIcons } from "../../components/WeatherIcons";
 import { SensorBox } from "./SensorBox";
 import { RootStackParamListLogged } from "../../@types/types";
+import { formatTemp } from "../../utils/formatTemp";
 
 import { useAuth } from "../../hooks/useAuth";
 import { useSensor } from "../../hooks/useSensor";
+import { useSetting } from "../../hooks/useSetting";
 import { useWeather } from "../../hooks/useWeather";
 import { useTranslation } from "react-i18next";
 
@@ -19,6 +21,7 @@ import * as S from "./styles";
 export function Home({ navigation }: HomeProps) {
   const { t } = useTranslation();
   const { user } = useAuth();
+  const { objSetting, getSetting } = useSetting();
   const { sensorData, loadData } = useSensor();
   const { getCurrent, loadingWeather, currentWeather } = useWeather();
 
@@ -40,7 +43,10 @@ export function Home({ navigation }: HomeProps) {
 
     if (!(values / leng)) return "NaN";
 
-    return `${(values / leng).toFixed(0)}°C`;
+    return formatTemp({
+      celsius: `${values / leng}`,
+      tempUnit: objSetting.tempUnit,
+    });
   };
 
   const getAverageWind = () => {
@@ -99,16 +105,20 @@ export function Home({ navigation }: HomeProps) {
   }, [sensorData]);
 
   useEffect(() => {
+    loadData(user?.sensors || []);
+    getSetting();
+  }, []);
+
+  useEffect(() => {
     getCurrent(
       {
         latitude: user?.geometry?.latitude || "",
         longitude: user?.geometry?.longitude || "",
       },
-      user?.config?.tempUnit || "celsius"
+      objSetting.tempUnit
     );
-
-    loadData(user?.sensors || []);
-  }, [""]);
+    setTempAverage(getAverageTemp());
+  }, [objSetting.tempUnit]);
 
   return (
     <>

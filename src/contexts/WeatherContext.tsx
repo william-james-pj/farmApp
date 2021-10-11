@@ -11,14 +11,15 @@ import {
   CurrentWeatherType,
   HourlyWeatherType,
   DailyWeatherType,
+  tempUnitType,
 } from "../@types/types";
 
 type WeatherType = {
   currentWeather: CurrentWeatherType;
   hourlyWeather: HourlyWeatherType[];
   dailyWeather: DailyWeatherType[];
-  getCurrent: (location: LocationType, tempUnit: string) => void;
-  getAll: (location: LocationType, tempUnit: string) => void;
+  getCurrent: (location: LocationType, tempUnit: tempUnitType) => void;
+  getAll: (location: LocationType, tempUnit: tempUnitType) => void;
   loadingWeather: boolean;
 };
 
@@ -39,7 +40,7 @@ export function WeatherContextProvider(props: WeatherProviderProps) {
   const [dailyWeather, setDailyWeather] = useState<DailyWeatherType[]>([]);
   const [loadingWeather, setloadingWeather] = useState(false);
 
-  const getCurrent = async (location: LocationType, tempUnit: string) => {
+  const getCurrent = async (location: LocationType, tempUnit: tempUnitType) => {
     setloadingWeather(true);
 
     const current = await getCurrentWeather(
@@ -52,7 +53,7 @@ export function WeatherContextProvider(props: WeatherProviderProps) {
     setloadingWeather(false);
   };
 
-  const getAll = async (location: LocationType, tempUnit: string) => {
+  const getAll = async (location: LocationType, tempUnit: tempUnitType) => {
     setloadingWeather(true);
 
     const { current, hourly, daily } = await getAllWeather(
@@ -69,22 +70,28 @@ export function WeatherContextProvider(props: WeatherProviderProps) {
     setloadingWeather(false);
   };
 
-  const formatCurrent = (current: CurrentWeatherType, tempUnit: string) => {
+  const formatCurrent = (
+    current: CurrentWeatherType,
+    tempUnit: tempUnitType
+  ) => {
     current.dtMill = Number(current.dt) * 1000;
     current.temp = formatTemp({
-      value: current.temp || "",
-      tempUnit: tempUnit === "celsius" ? "celsius" : "fahrenheit",
+      celsius: current.temp || "",
+      tempUnit,
     });
     current.windSpeed = formatWind(current.windSpeed || "");
 
     setCurrentWeather(current);
   };
 
-  const formatHourly = (hourly: HourlyWeatherType[], tempUnit: string) => {
+  const formatHourly = (
+    hourly: HourlyWeatherType[],
+    tempUnit: tempUnitType
+  ) => {
     hourly.forEach((element) => {
       element.temp = formatTemp({
-        value: element.temp || "",
-        tempUnit: tempUnit === "celsius" ? "celsius" : "fahrenheit",
+        celsius: element.temp || "",
+        tempUnit,
       });
       element.time = formatTime(element.dt || "");
     });
@@ -92,15 +99,15 @@ export function WeatherContextProvider(props: WeatherProviderProps) {
     setHourlyWeather(hourly);
   };
 
-  const formatDaily = (daily: DailyWeatherType[], tempUnit: string) => {
+  const formatDaily = (daily: DailyWeatherType[], tempUnit: tempUnitType) => {
     daily.forEach((element) => {
       element.maxValue = formatTemp({
-        value: element.maxValue || "",
-        tempUnit: tempUnit === "celsius" ? "celsius" : "fahrenheit",
+        celsius: element.maxValue || "",
+        tempUnit,
       });
       element.minValue = formatTemp({
-        value: element.minValue || "",
-        tempUnit: tempUnit === "celsius" ? "celsius" : "fahrenheit",
+        celsius: element.minValue || "",
+        tempUnit,
       });
       element.dtMill = Number(element.dt) * 1000;
     });

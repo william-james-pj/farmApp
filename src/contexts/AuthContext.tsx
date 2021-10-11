@@ -74,7 +74,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
       setUser({
         id: uid || "",
         name: userDb.data()?.name,
-        config: userDb.data()?.config,
         location: userDb.data()?.location,
         farmName: userDb.data()?.farmName,
       });
@@ -94,9 +93,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         .doc(user?.id)
         .update({
           farmName: userPorps.farmName,
-          config: {
-            tempUnit: userPorps.config.tempUnit,
-          },
           location: {
             country: userPorps.location.country,
             state: userPorps.location.state,
@@ -110,9 +106,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         name: user?.name || "",
         avatar: user?.avatar,
         farmName: userPorps.farmName,
-        config: {
-          tempUnit: userPorps.config.tempUnit,
-        },
         location: {
           country: userPorps.location.country,
           state: userPorps.location.state,
@@ -139,9 +132,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         name: userPorps.name,
         avatar: user?.avatar,
         farmName: userPorps.farmName,
-        config: {
-          tempUnit: userPorps.config.tempUnit,
-        },
         location: {
           country: userPorps.location.country,
           state: userPorps.location.state,
@@ -158,9 +148,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         .update({
           name: userPorps.name,
           farmName: userPorps.farmName,
-          config: {
-            tempUnit: userPorps.config.tempUnit,
-          },
           location: {
             country: userPorps.location.country,
             state: userPorps.location.state,
@@ -189,7 +176,6 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         setUser({
           id: uid,
           name: userDb.data()?.name,
-          config: userDb.data()?.config,
           location: userDb.data()?.location,
           farmName: userDb.data()?.farmName,
           geometry: userDb.data()?.geometry,

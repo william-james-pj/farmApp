@@ -46,9 +46,6 @@ type UserType = {
   name?: string;
   farmName?: string;
   avatar?: string;
-  config?: {
-    tempUnit: string;
-  };
   location?: {
     country: string;
     state: string;
@@ -63,9 +60,6 @@ type UserType = {
 
 type setInitialSetupProps = {
   farmName: string;
-  config: {
-    tempUnit: string;
-  };
   location: {
     country: string;
     state: string;
@@ -76,9 +70,6 @@ type setInitialSetupProps = {
 type setUpdateProfileProps = {
   name: string;
   farmName: string;
-  config: {
-    tempUnit: string;
-  };
   location: {
     country: string;
     state: string;
@@ -120,3 +111,5 @@ type GuideBoxType = {
   title: string;
   description: string;
 };
+
+type tempUnitType = "celsius" | "fahrenheit";
