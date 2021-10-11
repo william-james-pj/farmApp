@@ -23,7 +23,7 @@ export function Home({ navigation }: HomeProps) {
   const { user } = useAuth();
   const { objSetting, getSetting } = useSetting();
   const { sensorData, loadData } = useSensor();
-  const { getCurrent, loadingWeather, currentWeather } = useWeather();
+  const { getAll, loadingWeather, currentWeather } = useWeather();
 
   const [tempAverage, setTempAverage] = useState("");
   const [windAverage, setWindAverage] = useState("");
@@ -110,7 +110,7 @@ export function Home({ navigation }: HomeProps) {
   }, []);
 
   useEffect(() => {
-    getCurrent(
+    getAll(
       {
         latitude: user?.geometry?.latitude || "",
         longitude: user?.geometry?.longitude || "",
@@ -118,7 +118,7 @@ export function Home({ navigation }: HomeProps) {
       objSetting.tempUnit
     );
     setTempAverage(getAverageTemp());
-  }, [objSetting.tempUnit]);
+  }, [objSetting.tempUnit, user?.geometry?.latitude]);
 
   return (
     <>

@@ -8,13 +8,10 @@ import { Header } from "../../components/Header";
 import { TextInput } from "../../components/TextInput";
 import { BorderlessButton } from "react-native-gesture-handler";
 import { Loading } from "../../components/Loading";
-import { radioButtonsData } from "../../data/radioButtonData";
-import { RadioGroup } from "../../components/RadioGroup";
 import { Dropdown } from "../../components/Dropdown";
 import { useAuth } from "../../hooks/useAuth";
 import { useSetting } from "../../hooks/useSetting";
 import { useTranslation } from "react-i18next";
-import { useWeather } from "../../hooks/useWeather";
 import { getCity } from "../../utils/getCity";
 import { getState } from "../../utils/getState";
 
@@ -28,7 +25,6 @@ export function Profile({ navigation }: ProfileProps) {
   const { t } = useTranslation();
   const { objSetting } = useSetting();
   const { user, updateProfile } = useAuth();
-  const { getAll, getCurrent, hourlyWeather } = useWeather();
 
   const [name, setName] = useState(user?.name || "");
   const [farmName, setFarmName] = useState(user?.farmName || "");
@@ -78,23 +74,6 @@ export function Profile({ navigation }: ProfileProps) {
         },
       });
 
-      getCurrent(
-        {
-          latitude: user?.geometry?.latitude || "",
-          longitude: user?.geometry?.longitude || "",
-        },
-        objSetting.tempUnit
-      );
-
-      if (hourlyWeather.length > 0) {
-        getAll(
-          {
-            latitude: user?.geometry?.latitude || "",
-            longitude: user?.geometry?.longitude || "",
-          },
-          objSetting.tempUnit
-        );
-      }
       setLoadingProfile(false);
     } catch (error) {
       setLoadingProfile(false);

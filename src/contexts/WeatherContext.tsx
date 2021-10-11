@@ -19,7 +19,11 @@ type WeatherType = {
   hourlyWeather: HourlyWeatherType[];
   dailyWeather: DailyWeatherType[];
   getCurrent: (location: LocationType, tempUnit: tempUnitType) => void;
-  getAll: (location: LocationType, tempUnit: tempUnitType) => void;
+  getAll: (
+    location: LocationType,
+    tempUnit: tempUnitType,
+    all?: boolean
+  ) => void;
   loadingWeather: boolean;
 };
 
@@ -53,8 +57,17 @@ export function WeatherContextProvider(props: WeatherProviderProps) {
     setloadingWeather(false);
   };
 
-  const getAll = async (location: LocationType, tempUnit: tempUnitType) => {
+  const getAll = async (
+    location: LocationType,
+    tempUnit: tempUnitType,
+    all?: boolean
+  ) => {
     setloadingWeather(true);
+
+    if (hourlyWeather.length === 0 && !all) {
+      await getCurrent(location, tempUnit);
+      return;
+    }
 
     const { current, hourly, daily } = await getAllWeather(
       location.longitude,

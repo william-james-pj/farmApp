@@ -42,7 +42,8 @@ export function Weather() {
           latitude: user?.geometry?.latitude || "",
           longitude: user?.geometry?.longitude || "",
         },
-        objSetting.tempUnit
+        objSetting.tempUnit,
+        true
       );
     }
   }, []);
