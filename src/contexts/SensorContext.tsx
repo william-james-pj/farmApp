@@ -103,13 +103,17 @@ export function SensorContextProvider(props: SensorContextProviderProps) {
 
     if (!uuid.validate(code)) return { status: false, msg: 1 };
 
+    const exists = sensorData.filter((item) => item.id === code);
+
+    if (exists.length !== 0) return { status: false, msg: 3 };
+
     try {
       const sensorRef = await database.ref(`/sensors/${code}`).get();
 
       if (!sensorRef.exists()) return { status: false, msg: 2 };
 
       setSensorCode(code);
-      return { status: true, msg: 3 };
+      return { status: true, msg: 4 };
     } catch (error) {
       return { status: false, msg: 1 };
     }

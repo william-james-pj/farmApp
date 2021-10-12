@@ -46,7 +46,11 @@ export function QRCodeRead({ navigation }: QRCodeReadProps) {
     const { status, msg } = await validateSensor(data);
     if (!status) {
       const message =
-        msg === 1 ? t("message:codeInvalid") : t("message:notFound");
+        msg === 1
+          ? t("message:codeInvalid")
+          : msg === 2
+          ? t("message:notFound")
+          : t("message:sensorExists");
 
       setScanned(true);
       return Alert.alert(message, undefined, [

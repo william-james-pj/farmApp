@@ -52,4 +52,5 @@ export default {
   scanning: "A digitalização começará automaticamente",
   codeInvalid: "Código inválido",
   notFound: "Sensor não encontrado",
+  sensorExists: "Sensor já adicionado",
 };

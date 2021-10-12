@@ -51,4 +51,5 @@ export default {
   scanning: "Scanning will start automatically",
   codeInvalid: "Code invalid",
   notFound: "Sensor not found",
+  sensorExists: "Sensor already added",
 };
