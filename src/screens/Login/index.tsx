@@ -85,8 +85,6 @@ export function Login() {
                 </BorderlessButton>
               </S.Button>
             </S.Row>
-            <S.SubTitle>{t("message:orConnect")}</S.SubTitle>
-            <ButtonGoogle onPress={() => {}} />
           </S.Wrapper>
         </ScrollView>
       </KeyboardAvoidingView>
