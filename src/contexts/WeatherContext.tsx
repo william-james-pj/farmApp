@@ -62,6 +62,8 @@ export function WeatherContextProvider(props: WeatherProviderProps) {
     tempUnit: tempUnitType,
     all?: boolean
   ) => {
+    if (loadingWeather) return;
+
     setloadingWeather(true);
 
     if (hourlyWeather.length === 0 && !all) {
