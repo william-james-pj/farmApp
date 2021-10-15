@@ -11,13 +11,20 @@ import { useTranslation } from "react-i18next";
 import { useWeather } from "../../hooks/useWeather";
 import { useSetting } from "../../hooks/useSetting";
 
-import { DailyWeatherType, HourlyWeatherType } from "../../@types/types";
+import { StackScreenProps } from "@react-navigation/stack";
+import {
+  DailyWeatherType,
+  HourlyWeatherType,
+  RootStackParamListLogged,
+} from "../../@types/types";
+
+type WeatherProps = StackScreenProps<RootStackParamListLogged, "Weather">;
 
 import * as S from "./styles";
 
-export function Weather() {
+export function Weather({ navigation }: WeatherProps) {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { user, loadingProfile } = useAuth();
   const { objSetting } = useSetting();
   const {
     getAll,
@@ -37,6 +44,12 @@ export function Weather() {
 
   useEffect(() => {
     if (howLongAgo(hourlyWeather[0]?.dt)) {
+      if (!user?.geometry?.latitude) {
+        navigation.goBack();
+        loadingProfile();
+        return;
+      }
+
       getAll(
         {
           latitude: user?.geometry?.latitude || "",

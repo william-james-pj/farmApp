@@ -14,6 +14,7 @@ type AuthContextType = {
   loginWithEmailAndPassword: (email: string, password: string) => Promise<void>;
   setInitialSetup: (useProps: setInitialSetupProps) => Promise<void>;
   updateProfile: (useProps: setUpdateProfileProps) => Promise<void>;
+  loadingProfile: () => Promise<void>;
   logout: () => void;
   errorMsg: string;
 };
@@ -160,6 +161,23 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
     }
   }
 
+  async function loadingProfile() {
+    try {
+      const userDb = await firestore.collection("Users").doc(user?.id).get();
+
+      const uid = user?.id || "";
+
+      setUser({
+        id: uid,
+        name: userDb.data()?.name,
+        location: userDb.data()?.location,
+        farmName: userDb.data()?.farmName,
+        geometry: userDb.data()?.geometry,
+        sensors: userDb.data()?.sensors,
+      });
+    } catch (error) {}
+  }
+
   function logout() {
     auth.signOut().then(() => {
       setUser(undefined);
@@ -167,9 +185,9 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
   }
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const { uid } = user;
+    const unsubscribe = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const { uid } = userAuth;
 
         const userDb = await firestore.collection("Users").doc(uid).get();
 
@@ -197,6 +215,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         loginWithEmailAndPassword,
         setInitialSetup,
         updateProfile,
+        loadingProfile,
         logout,
         errorMsg,
       }}
