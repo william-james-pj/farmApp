@@ -75,6 +75,7 @@ export function Profile({ navigation }: ProfileProps) {
       });
 
       setLoadingProfile(false);
+      setButtonDisabled(true);
     } catch (error) {
       setLoadingProfile(false);
       console.log(error);
