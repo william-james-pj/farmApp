@@ -23,6 +23,11 @@
 
 ## Sobre o projeto
 
+<div style="text-align:center">
+  <img src=".github/cover.gif" alt="screenshot" width="200"/>
+</div>
+<br />
+
 O objetivo do aplicativo é ajudar os pequenos produtores rurais a monitorar suas plantações através de um aplicativo de forma mais simples e de baixo custo. Assim auxiliando agricultores familiares e de pequeno porte com a supervisão e controle da qualidade do solo e saúde das plantas utilizando a tecnologia.
 
 ### Construído com
